@@ -22,3 +22,23 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/*#region Social Media*/
+
+#socialLoginList button {
+    color: rgba(255,255,255,0.9);
+}
+
+button#Google {   
+    background: #c32f10;
+}
+
+button#Facebook {
+    background: #3b5998;
+}
+
+button#Twitter {
+    background: #00aced;
+}
+
+/*#endregion*/

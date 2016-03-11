@@ -143,9 +143,26 @@ CREATE TABLE Salutations (
 	DateCreated datetime default CURRENT_TIMESTAMP not null,
 	DateModified datetime default CURRENT_TIMESTAMP not null,
 
-	Constraint fk_Applicant_Professions_createdBy foreign key (CreatedById) references AspNetUsers(Id),
-	Constraint fk_Applicant_Professions_modifiedBy foreign key (ModifiedById) references AspNetUsers(Id)
+	Constraint fk_Salutation_createdBy foreign key (CreatedById) references AspNetUsers(Id),
+	Constraint fk_Salutation_modifiedBy foreign key (ModifiedById) references AspNetUsers(Id)
 );
+
+GO
+
+CREATE TABLE Contacts (
+	ContactId int Primary Key Identity (1,1) not null,
+	SalutationId int not null,
+	AddressId int not null,
+	CreatedById nvarchar(128) not null,
+	ModifiedById nvarchar(128) not null,
+	DateCreated datetime default CURRENT_TIMESTAMP not null,
+	DateModified datetime default CURRENT_TIMESTAMP not null,
+
+	Constraint fk_Contacts_Salutation foreign key (SalutationId) references Salutations(SalutationId),
+	Constraint fk_Contacts_Address foreign key (AddressId) references Addresses(AddressId),
+	Constraint fk_Contacts_createdBy foreign key (CreatedById) references AspNetUsers(Id),
+	Constraint fk_Contacts_modifiedBy foreign key (ModifiedById) references AspNetUsers(Id)
+); 
 
 GO
 
@@ -186,7 +203,7 @@ CREATE TABLE Applicant (
 	DateModified datetime default CURRENT_TIMESTAMP not null,
 
 	Constraint fk_Applicant_Addresses foreign key (AddressId) references Addresses(AddressId),
-	Constraint fk_Applicant_Salutation foreign key (SalutationId) references Salutation(SalutationId),
+	Constraint fk_Applicant_Salutation foreign key (SalutationId) references Salutations(SalutationId),
 	Constraint fk_Applicant_CV foreign key (CVId) references CV(CVId),
 	Constraint fk_Applicant_createdBy foreign key (CreatedById) references AspNetUsers(Id),
 	Constraint fk_Applicant_modifiedBy foreign key (ModifiedById) references AspNetUsers(Id)

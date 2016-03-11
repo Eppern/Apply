@@ -1,28 +1,26 @@
 ﻿@model Apply.Models.ExternalLoginListViewModel
 @using Microsoft.Owin.Security
+@using Apply.Helpers
 
-<h4>Einen anderen Dienst zum Anmelden verwenden.</h4>
+<h4>Sign in with your social media account</h4>
 <hr />
 @{
     var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
-    if (loginProviders.Count() == 0) {
-        <div>
-            <p>
-                Es sind keine externen Authentifizierungsdienste konfiguriert. In <a href="http://go.microsoft.com/fwlink/?LinkId=403804">diesem Artikel</a>
-                finden Sie weitere Informationen zum Einrichten dieser ASP.NET-Anwendung für die Unterstützung der Anmeldung über externe Dienste.
-            </p>
-        </div>
-    }
-    else {
-        using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl })) {
-            @Html.AntiForgeryToken()
-            <div id="socialLoginList">
-                <p>
-                    @foreach (AuthenticationDescription p in loginProviders) {
-                        <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Mit Ihrem @p.Caption-Konto anmelden">@p.AuthenticationType</button>
-                    }
-                </p>
+    using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl })) {
+        @Html.AntiForgeryToken()
+        <div id="socialLoginList" class="row">
+            <div class="col-xs-4 col-sm-6">
+                @foreach (AuthenticationDescription p in loginProviders) {
+                    string provider = UserHelpers.GetExternalProviderGlyphicon(p.AuthenticationType);
+                    <button type="submit" class="btn btn btn-lg btn-block"
+                            id="@p.AuthenticationType" name="provider"
+                            value="@p.AuthenticationType"
+                            title="Log in using your @p.Caption account">
+                        <i class="fa fa-@provider visible-xs"></i>
+                        <span class="hidden-xs">@p.AuthenticationType</span>
+                    </button>
+                }
             </div>
-        }
+        </div>
     }
 }
