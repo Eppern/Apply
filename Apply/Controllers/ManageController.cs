@@ -331,7 +331,33 @@ namespace Apply.Controllers
             base.Dispose(disposing);
         }
 
-#region Hilfsprogramme
+        public ActionResult Daten()
+        {
+            return View();
+        }
+
+        public ActionResult Education()
+        {
+            return View();
+        }
+
+        public ActionResult WorkEx()
+        {
+            return View();
+        }
+
+        public ActionResult Language()
+        {
+            return View();
+        }
+
+        public ActionResult Skills()
+        {
+            return View();
+        }
+
+
+        #region Hilfsprogramme
         // Wird für XSRF-Schutz beim Hinzufügen externer Anmeldungen verwendet.
         private const string XsrfKey = "XsrfId";
 

@@ -1,0 +1,24 @@
+﻿.SidebarButton {
+    position: relative;
+    padding: 12px 12px;
+    background-color: rgba(0, 0, 0, 0);
+    border: 1px solid rgba(0,0,0,1);
+    border-radius: 5px;
+}
+
+.SidebarButton .icon-bar {
+    background-color: #000;
+    display: block;
+    width: 22px;
+    height: 2px;
+    border-radius: 1px;
+}
+
+.SidebarButton .icon-bar + .icon-bar {
+        background-color: #000;
+        margin-top: 4px;
+}
+
+.SidebarButton .icon-bar + .icon-bar + .icon-bar {
+        background-color: #000;
+}

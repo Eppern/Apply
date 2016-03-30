@@ -1,0 +1,87 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Meine ASP.NET-Anwendung</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Anwendungsname", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Startseite", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Info", "About", "Home")</li>
+                    <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+        <div id="wrapper">
+            <!-- Sidebar -->
+            <div id="sidebar-wrapper">
+                <ul class="sidebar-nav">
+                    <li>
+                        @Html.ActionLink("Info`s", "Index", "Manage")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Persönliche Daten", "Daten", "Manage")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Berufserfahrung", "WorkEx", "Manage")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Schulische Ausbildung", "Education", "Manage")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Sprachen", "Language", "Manage")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Fähigkeiten", "Skills", "Manage")
+                    </li>
+                </ul>
+            </div>
+            <!-- /#sidebar-wrapper -->
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <button href="#menu-toggle" type="button" class="SidebarButton" id="menu-toggle">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            @RenderBody()
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /#page-content-wrapper -->
+        </div>
+
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+<script>
+    $("#menu-toggle").click(function (e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+</script>
