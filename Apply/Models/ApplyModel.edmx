@@ -1,0 +1,2144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ApplyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Addresses">
+          <Key>
+            <PropertyRef Name="AddressId" />
+          </Key>
+          <Property Name="AddressId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Street" Type="nvarchar" MaxLength="256" />
+          <Property Name="PostCode" Type="nvarchar" MaxLength="128" />
+          <Property Name="Town" Type="nvarchar" MaxLength="256" />
+          <Property Name="Country" Type="nvarchar" MaxLength="128" />
+          <Property Name="State" Type="nvarchar" MaxLength="256" />
+          <Property Name="HouseNr" Type="nvarchar" MaxLength="256" />
+          <Property Name="DoorNr" Type="nvarchar" MaxLength="256" />
+          <Property Name="CreatedById" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ModifiedById" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Applicant">
+          <Key>
+            <PropertyRef Name="ApplicantId" />
+          </Key>
+          <Property Name="ApplicantId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ForeName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="SurName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="DOB" Type="date" />
+          <Property Name="Title" Type="nvarchar" MaxLength="256" />
+          <Property Name="AddressId" Type="int" Nullable="false" />
+          <Property Name="SalutationId" Type="int" Nullable="false" />
+          <Property Name="CVId" Type="int" Nullable="false" />
+          <Property Name="CreatedById" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ModifiedById" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Applicant_Professions">
+          <Key>
+            <PropertyRef Name="Applicant_ProfessionsId" />
+          </Key>
+          <Property Name="Applicant_ProfessionsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApplicantId" Type="int" Nullable="false" />
+          <Property Name="Profession" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="CreatedById" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ModifiedById" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Forename" Type="nvarchar" MaxLength="128" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="Contacts">
+          <Key>
+            <PropertyRef Name="ContactId" />
+          </Key>
+          <Property Name="ContactId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SalutationId" Type="int" Nullable="false" />
+          <Property Name="AddressId" Type="int" Nullable="false" />
+          <Property Name="CreatedById" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ModifiedById" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CV">
+          <Key>
+            <PropertyRef Name="CVId" />
+          </Key>
+          <Property Name="CVId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreatedById" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ModifiedById" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Education">
+          <Key>
+            <PropertyRef Name="EducationId" />
+          </Key>
+          <Property Name="EducationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MonthStart" Type="int" Nullable="false" />
+          <Property Name="MonthEnd" Type="int" Nullable="false" />
+          <Property Name="YearStart" Type="int" Nullable="false" />
+          <Property Name="YearEnd" Type="int" Nullable="false" />
+          <Property Name="InstitutionName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+          <Property Name="CreatedById" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ModifiedById" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LanguageCompetence">
+          <Key>
+            <PropertyRef Name="LanguageCompetenceId" />
+          </Key>
+          <Property Name="LanguageCompetenceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LanguageName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="CreatedById" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ModifiedById" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+          <Property Name="LanguageCompetenceLevelId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LanguageCompetenceLevel">
+          <Key>
+            <PropertyRef Name="LanguageCompetenceLevelId" />
+          </Key>
+          <Property Name="LanguageCompetenceLevelId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LevelName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="CreatedById" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ModifiedById" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Salutations">
+          <Key>
+            <PropertyRef Name="SalutationId" />
+          </Key>
+          <Property Name="SalutationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShortName" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="LongName" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="CreatedById" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ModifiedById" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Skill">
+          <Key>
+            <PropertyRef Name="SkillId" />
+          </Key>
+          <Property Name="SkillId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SkillName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="CreatedById" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ModifiedById" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+          <Property Name="SkillLevelId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SkillLevel">
+          <Key>
+            <PropertyRef Name="SkillLevelId" />
+          </Key>
+          <Property Name="SkillLevelId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LevelName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="CreatedById" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ModifiedById" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TargetCompany">
+          <Key>
+            <PropertyRef Name="TargetCompanyId" />
+          </Key>
+          <Property Name="TargetCompanyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="ContactId" Type="int" Nullable="false" />
+          <Property Name="AddressId" Type="int" Nullable="false" />
+          <Property Name="CreatedById" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ModifiedById" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WorkExperience">
+          <Key>
+            <PropertyRef Name="WorkExperienceId" />
+          </Key>
+          <Property Name="WorkExperienceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreatedById" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ModifiedById" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+          <Property Name="MonthStart" Type="int" Nullable="false" />
+          <Property Name="MonthEnd" Type="int" Nullable="false" />
+          <Property Name="YearStart" Type="int" Nullable="false" />
+          <Property Name="YearEnd" Type="int" Nullable="false" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="PositionHeld" Type="nvarchar(max)" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="fk_Address_createdBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Addresses" Type="Self.Addresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Addresses">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Address_modifiedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Addresses" Type="Self.Addresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Addresses">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Applicant_Addresses">
+          <End Role="Addresses" Type="Self.Addresses" Multiplicity="1" />
+          <End Role="Applicant" Type="Self.Applicant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="AddressId" />
+            </Principal>
+            <Dependent Role="Applicant">
+              <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Applicant_createdBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Applicant" Type="Self.Applicant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Applicant">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Applicant_CV">
+          <End Role="CV" Type="Self.CV" Multiplicity="1" />
+          <End Role="Applicant" Type="Self.Applicant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CV">
+              <PropertyRef Name="CVId" />
+            </Principal>
+            <Dependent Role="Applicant">
+              <PropertyRef Name="CVId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Applicant_modifiedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Applicant" Type="Self.Applicant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Applicant">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Applicant_Professions_Applicant">
+          <End Role="Applicant" Type="Self.Applicant" Multiplicity="1" />
+          <End Role="Applicant_Professions" Type="Self.Applicant_Professions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Applicant">
+              <PropertyRef Name="ApplicantId" />
+            </Principal>
+            <Dependent Role="Applicant_Professions">
+              <PropertyRef Name="ApplicantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Applicant_Professions_createdBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Applicant_Professions" Type="Self.Applicant_Professions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Applicant_Professions">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Applicant_Professions_modifiedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Applicant_Professions" Type="Self.Applicant_Professions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Applicant_Professions">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Applicant_Salutation">
+          <End Role="Salutations" Type="Self.Salutations" Multiplicity="1" />
+          <End Role="Applicant" Type="Self.Applicant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salutations">
+              <PropertyRef Name="SalutationId" />
+            </Principal>
+            <Dependent Role="Applicant">
+              <PropertyRef Name="SalutationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Contacts_Address">
+          <End Role="Addresses" Type="Self.Addresses" Multiplicity="1" />
+          <End Role="Contacts" Type="Self.Contacts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="AddressId" />
+            </Principal>
+            <Dependent Role="Contacts">
+              <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Contacts_createdBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Contacts" Type="Self.Contacts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contacts">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Contacts_modifiedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Contacts" Type="Self.Contacts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contacts">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Contacts_Salutation">
+          <End Role="Salutations" Type="Self.Salutations" Multiplicity="1" />
+          <End Role="Contacts" Type="Self.Contacts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salutations">
+              <PropertyRef Name="SalutationId" />
+            </Principal>
+            <Dependent Role="Contacts">
+              <PropertyRef Name="SalutationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cv_createdBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="CV" Type="Self.CV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CV">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cv_modifiedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="CV" Type="Self.CV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CV">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Education_createdBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Education" Type="Self.Education" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Education">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Education_modifiedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Education" Type="Self.Education" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Education">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_LanguageCompetence_createdBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="LanguageCompetence" Type="Self.LanguageCompetence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LanguageCompetence">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_LanguageCompetence_LanguageCompetenceLevel">
+          <End Role="LanguageCompetenceLevel" Type="Self.LanguageCompetenceLevel" Multiplicity="1" />
+          <End Role="LanguageCompetence" Type="Self.LanguageCompetence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LanguageCompetenceLevel">
+              <PropertyRef Name="LanguageCompetenceLevelId" />
+            </Principal>
+            <Dependent Role="LanguageCompetence">
+              <PropertyRef Name="LanguageCompetenceLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_LanguageCompetence_modifiedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="LanguageCompetence" Type="Self.LanguageCompetence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LanguageCompetence">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_LanguageCompetenceLevel_createdBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="LanguageCompetenceLevel" Type="Self.LanguageCompetenceLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LanguageCompetenceLevel">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_LanguageCompetenceLevel_modifiedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="LanguageCompetenceLevel" Type="Self.LanguageCompetenceLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LanguageCompetenceLevel">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Salutation_createdBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Salutations" Type="Self.Salutations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Salutations">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Salutation_modifiedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Salutations" Type="Self.Salutations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Salutations">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Skill_createdBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Skill" Type="Self.Skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Skill">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Skill_modifiedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Skill" Type="Self.Skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Skill">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Skill_SkillLevel">
+          <End Role="SkillLevel" Type="Self.SkillLevel" Multiplicity="1" />
+          <End Role="Skill" Type="Self.Skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SkillLevel">
+              <PropertyRef Name="SkillLevelId" />
+            </Principal>
+            <Dependent Role="Skill">
+              <PropertyRef Name="SkillLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SkillLevel_createdBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="SkillLevel" Type="Self.SkillLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SkillLevel">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SkillLevel_modifiedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="SkillLevel" Type="Self.SkillLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SkillLevel">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TargetCompany_Address">
+          <End Role="Addresses" Type="Self.Addresses" Multiplicity="1" />
+          <End Role="TargetCompany" Type="Self.TargetCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="AddressId" />
+            </Principal>
+            <Dependent Role="TargetCompany">
+              <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TargetCompany_Contact">
+          <End Role="Contacts" Type="Self.Contacts" Multiplicity="1" />
+          <End Role="TargetCompany" Type="Self.TargetCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contacts">
+              <PropertyRef Name="ContactId" />
+            </Principal>
+            <Dependent Role="TargetCompany">
+              <PropertyRef Name="ContactId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TargetCompany_createdBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="TargetCompany" Type="Self.TargetCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TargetCompany">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TargetCompany_modifiedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="TargetCompany" Type="Self.TargetCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TargetCompany">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_WorkExperience_createdBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="WorkExperience" Type="Self.WorkExperience" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WorkExperience">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_WorkExperience_modifiedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="WorkExperience" Type="Self.WorkExperience" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WorkExperience">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ApplyModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Addresses" EntityType="Self.Addresses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Applicant" EntityType="Self.Applicant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Applicant_Professions" EntityType="Self.Applicant_Professions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contacts" EntityType="Self.Contacts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CV" EntityType="Self.CV" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Education" EntityType="Self.Education" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LanguageCompetence" EntityType="Self.LanguageCompetence" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LanguageCompetenceLevel" EntityType="Self.LanguageCompetenceLevel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Salutations" EntityType="Self.Salutations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Skill" EntityType="Self.Skill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SkillLevel" EntityType="Self.SkillLevel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TargetCompany" EntityType="Self.TargetCompany" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkExperience" EntityType="Self.WorkExperience" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_Address_createdBy" Association="Self.fk_Address_createdBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Addresses" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Address_modifiedBy" Association="Self.fk_Address_modifiedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Addresses" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Applicant_Addresses" Association="Self.fk_Applicant_Addresses">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="Applicant" EntitySet="Applicant" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Applicant_createdBy" Association="Self.fk_Applicant_createdBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Applicant" EntitySet="Applicant" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Applicant_CV" Association="Self.fk_Applicant_CV">
+            <End Role="CV" EntitySet="CV" />
+            <End Role="Applicant" EntitySet="Applicant" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Applicant_modifiedBy" Association="Self.fk_Applicant_modifiedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Applicant" EntitySet="Applicant" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Applicant_Professions_Applicant" Association="Self.fk_Applicant_Professions_Applicant">
+            <End Role="Applicant" EntitySet="Applicant" />
+            <End Role="Applicant_Professions" EntitySet="Applicant_Professions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Applicant_Professions_createdBy" Association="Self.fk_Applicant_Professions_createdBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Applicant_Professions" EntitySet="Applicant_Professions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Applicant_Professions_modifiedBy" Association="Self.fk_Applicant_Professions_modifiedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Applicant_Professions" EntitySet="Applicant_Professions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Applicant_Salutation" Association="Self.fk_Applicant_Salutation">
+            <End Role="Salutations" EntitySet="Salutations" />
+            <End Role="Applicant" EntitySet="Applicant" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Contacts_Address" Association="Self.fk_Contacts_Address">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="Contacts" EntitySet="Contacts" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Contacts_createdBy" Association="Self.fk_Contacts_createdBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Contacts" EntitySet="Contacts" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Contacts_modifiedBy" Association="Self.fk_Contacts_modifiedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Contacts" EntitySet="Contacts" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Contacts_Salutation" Association="Self.fk_Contacts_Salutation">
+            <End Role="Salutations" EntitySet="Salutations" />
+            <End Role="Contacts" EntitySet="Contacts" />
+          </AssociationSet>
+          <AssociationSet Name="fk_cv_createdBy" Association="Self.fk_cv_createdBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CV" EntitySet="CV" />
+          </AssociationSet>
+          <AssociationSet Name="fk_cv_modifiedBy" Association="Self.fk_cv_modifiedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CV" EntitySet="CV" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Education_createdBy" Association="Self.fk_Education_createdBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Education" EntitySet="Education" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Education_modifiedBy" Association="Self.fk_Education_modifiedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Education" EntitySet="Education" />
+          </AssociationSet>
+          <AssociationSet Name="fk_LanguageCompetence_createdBy" Association="Self.fk_LanguageCompetence_createdBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="LanguageCompetence" EntitySet="LanguageCompetence" />
+          </AssociationSet>
+          <AssociationSet Name="fk_LanguageCompetence_LanguageCompetenceLevel" Association="Self.fk_LanguageCompetence_LanguageCompetenceLevel">
+            <End Role="LanguageCompetenceLevel" EntitySet="LanguageCompetenceLevel" />
+            <End Role="LanguageCompetence" EntitySet="LanguageCompetence" />
+          </AssociationSet>
+          <AssociationSet Name="fk_LanguageCompetence_modifiedBy" Association="Self.fk_LanguageCompetence_modifiedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="LanguageCompetence" EntitySet="LanguageCompetence" />
+          </AssociationSet>
+          <AssociationSet Name="fk_LanguageCompetenceLevel_createdBy" Association="Self.fk_LanguageCompetenceLevel_createdBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="LanguageCompetenceLevel" EntitySet="LanguageCompetenceLevel" />
+          </AssociationSet>
+          <AssociationSet Name="fk_LanguageCompetenceLevel_modifiedBy" Association="Self.fk_LanguageCompetenceLevel_modifiedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="LanguageCompetenceLevel" EntitySet="LanguageCompetenceLevel" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Salutation_createdBy" Association="Self.fk_Salutation_createdBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Salutations" EntitySet="Salutations" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Salutation_modifiedBy" Association="Self.fk_Salutation_modifiedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Salutations" EntitySet="Salutations" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Skill_createdBy" Association="Self.fk_Skill_createdBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Skill" EntitySet="Skill" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Skill_modifiedBy" Association="Self.fk_Skill_modifiedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Skill" EntitySet="Skill" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Skill_SkillLevel" Association="Self.fk_Skill_SkillLevel">
+            <End Role="SkillLevel" EntitySet="SkillLevel" />
+            <End Role="Skill" EntitySet="Skill" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SkillLevel_createdBy" Association="Self.fk_SkillLevel_createdBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="SkillLevel" EntitySet="SkillLevel" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SkillLevel_modifiedBy" Association="Self.fk_SkillLevel_modifiedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="SkillLevel" EntitySet="SkillLevel" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TargetCompany_Address" Association="Self.fk_TargetCompany_Address">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="TargetCompany" EntitySet="TargetCompany" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TargetCompany_Contact" Association="Self.fk_TargetCompany_Contact">
+            <End Role="Contacts" EntitySet="Contacts" />
+            <End Role="TargetCompany" EntitySet="TargetCompany" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TargetCompany_createdBy" Association="Self.fk_TargetCompany_createdBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="TargetCompany" EntitySet="TargetCompany" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TargetCompany_modifiedBy" Association="Self.fk_TargetCompany_modifiedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="TargetCompany" EntitySet="TargetCompany" />
+          </AssociationSet>
+          <AssociationSet Name="fk_WorkExperience_createdBy" Association="Self.fk_WorkExperience_createdBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="WorkExperience" EntitySet="WorkExperience" />
+          </AssociationSet>
+          <AssociationSet Name="fk_WorkExperience_modifiedBy" Association="Self.fk_WorkExperience_modifiedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="WorkExperience" EntitySet="WorkExperience" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ApplyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="AddressId" />
+          </Key>
+          <Property Name="AddressId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Street" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PostCode" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Town" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="HouseNr" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="DoorNr" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModifiedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.fk_Address_createdBy" FromRole="Addresses" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser1" Relationship="Self.fk_Address_modifiedBy" FromRole="Addresses" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Applicants" Relationship="Self.fk_Applicant_Addresses" FromRole="Addresses" ToRole="Applicant" />
+          <NavigationProperty Name="Contacts" Relationship="Self.fk_Contacts_Address" FromRole="Addresses" ToRole="Contacts" />
+          <NavigationProperty Name="TargetCompanies" Relationship="Self.fk_TargetCompany_Address" FromRole="Addresses" ToRole="TargetCompany" />
+        </EntityType>
+        <EntityType Name="Applicant">
+          <Key>
+            <PropertyRef Name="ApplicantId" />
+          </Key>
+          <Property Name="ApplicantId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ForeName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SurName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DOB" Type="DateTime" Precision="0" />
+          <Property Name="Title" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="AddressId" Type="Int32" Nullable="false" />
+          <Property Name="SalutationId" Type="Int32" Nullable="false" />
+          <Property Name="CVId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModifiedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Address" Relationship="Self.fk_Applicant_Addresses" FromRole="Applicant" ToRole="Addresses" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.fk_Applicant_createdBy" FromRole="Applicant" ToRole="AspNetUsers" />
+          <NavigationProperty Name="CV" Relationship="Self.fk_Applicant_CV" FromRole="Applicant" ToRole="CV" />
+          <NavigationProperty Name="AspNetUser1" Relationship="Self.fk_Applicant_modifiedBy" FromRole="Applicant" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Applicant_Professions" Relationship="Self.fk_Applicant_Professions_Applicant" FromRole="Applicant" ToRole="Applicant_Professions" />
+          <NavigationProperty Name="Salutation" Relationship="Self.fk_Applicant_Salutation" FromRole="Applicant" ToRole="Salutations" />
+        </EntityType>
+        <EntityType Name="Applicant_Professions">
+          <Key>
+            <PropertyRef Name="Applicant_ProfessionsId" />
+          </Key>
+          <Property Name="Applicant_ProfessionsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplicantId" Type="Int32" Nullable="false" />
+          <Property Name="Profession" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModifiedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Applicant" Relationship="Self.fk_Applicant_Professions_Applicant" FromRole="Applicant_Professions" ToRole="Applicant" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.fk_Applicant_Professions_createdBy" FromRole="Applicant_Professions" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser1" Relationship="Self.fk_Applicant_Professions_modifiedBy" FromRole="Applicant_Professions" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Forename" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Addresses" Relationship="Self.fk_Address_createdBy" FromRole="AspNetUsers" ToRole="Addresses" />
+          <NavigationProperty Name="Addresses1" Relationship="Self.fk_Address_modifiedBy" FromRole="AspNetUsers" ToRole="Addresses" />
+          <NavigationProperty Name="Applicants" Relationship="Self.fk_Applicant_createdBy" FromRole="AspNetUsers" ToRole="Applicant" />
+          <NavigationProperty Name="Applicants1" Relationship="Self.fk_Applicant_modifiedBy" FromRole="AspNetUsers" ToRole="Applicant" />
+          <NavigationProperty Name="Applicant_Professions" Relationship="Self.fk_Applicant_Professions_createdBy" FromRole="AspNetUsers" ToRole="Applicant_Professions" />
+          <NavigationProperty Name="Applicant_Professions1" Relationship="Self.fk_Applicant_Professions_modifiedBy" FromRole="AspNetUsers" ToRole="Applicant_Professions" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="Contacts" Relationship="Self.fk_Contacts_createdBy" FromRole="AspNetUsers" ToRole="Contacts" />
+          <NavigationProperty Name="Contacts1" Relationship="Self.fk_Contacts_modifiedBy" FromRole="AspNetUsers" ToRole="Contacts" />
+          <NavigationProperty Name="CVs" Relationship="Self.fk_cv_createdBy" FromRole="AspNetUsers" ToRole="CV" />
+          <NavigationProperty Name="CVs1" Relationship="Self.fk_cv_modifiedBy" FromRole="AspNetUsers" ToRole="CV" />
+          <NavigationProperty Name="Educations" Relationship="Self.fk_Education_createdBy" FromRole="AspNetUsers" ToRole="Education" />
+          <NavigationProperty Name="Educations1" Relationship="Self.fk_Education_modifiedBy" FromRole="AspNetUsers" ToRole="Education" />
+          <NavigationProperty Name="LanguageCompetences" Relationship="Self.fk_LanguageCompetence_createdBy" FromRole="AspNetUsers" ToRole="LanguageCompetence" />
+          <NavigationProperty Name="LanguageCompetences1" Relationship="Self.fk_LanguageCompetence_modifiedBy" FromRole="AspNetUsers" ToRole="LanguageCompetence" />
+          <NavigationProperty Name="LanguageCompetenceLevels" Relationship="Self.fk_LanguageCompetenceLevel_createdBy" FromRole="AspNetUsers" ToRole="LanguageCompetenceLevel" />
+          <NavigationProperty Name="LanguageCompetenceLevels1" Relationship="Self.fk_LanguageCompetenceLevel_modifiedBy" FromRole="AspNetUsers" ToRole="LanguageCompetenceLevel" />
+          <NavigationProperty Name="Salutations" Relationship="Self.fk_Salutation_createdBy" FromRole="AspNetUsers" ToRole="Salutations" />
+          <NavigationProperty Name="Salutations1" Relationship="Self.fk_Salutation_modifiedBy" FromRole="AspNetUsers" ToRole="Salutations" />
+          <NavigationProperty Name="Skills" Relationship="Self.fk_Skill_createdBy" FromRole="AspNetUsers" ToRole="Skill" />
+          <NavigationProperty Name="Skills1" Relationship="Self.fk_Skill_modifiedBy" FromRole="AspNetUsers" ToRole="Skill" />
+          <NavigationProperty Name="SkillLevels" Relationship="Self.fk_SkillLevel_createdBy" FromRole="AspNetUsers" ToRole="SkillLevel" />
+          <NavigationProperty Name="SkillLevels1" Relationship="Self.fk_SkillLevel_modifiedBy" FromRole="AspNetUsers" ToRole="SkillLevel" />
+          <NavigationProperty Name="TargetCompanies" Relationship="Self.fk_TargetCompany_createdBy" FromRole="AspNetUsers" ToRole="TargetCompany" />
+          <NavigationProperty Name="TargetCompanies1" Relationship="Self.fk_TargetCompany_modifiedBy" FromRole="AspNetUsers" ToRole="TargetCompany" />
+          <NavigationProperty Name="WorkExperiences" Relationship="Self.fk_WorkExperience_createdBy" FromRole="AspNetUsers" ToRole="WorkExperience" />
+          <NavigationProperty Name="WorkExperiences1" Relationship="Self.fk_WorkExperience_modifiedBy" FromRole="AspNetUsers" ToRole="WorkExperience" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="ContactId" />
+          </Key>
+          <Property Name="ContactId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SalutationId" Type="Int32" Nullable="false" />
+          <Property Name="AddressId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModifiedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Address" Relationship="Self.fk_Contacts_Address" FromRole="Contacts" ToRole="Addresses" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.fk_Contacts_createdBy" FromRole="Contacts" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser1" Relationship="Self.fk_Contacts_modifiedBy" FromRole="Contacts" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Salutation" Relationship="Self.fk_Contacts_Salutation" FromRole="Contacts" ToRole="Salutations" />
+          <NavigationProperty Name="TargetCompanies" Relationship="Self.fk_TargetCompany_Contact" FromRole="Contacts" ToRole="TargetCompany" />
+        </EntityType>
+        <EntityType Name="CV">
+          <Key>
+            <PropertyRef Name="CVId" />
+          </Key>
+          <Property Name="CVId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreatedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModifiedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Applicants" Relationship="Self.fk_Applicant_CV" FromRole="CV" ToRole="Applicant" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.fk_cv_createdBy" FromRole="CV" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser1" Relationship="Self.fk_cv_modifiedBy" FromRole="CV" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="Education">
+          <Key>
+            <PropertyRef Name="EducationId" />
+          </Key>
+          <Property Name="EducationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MonthStart" Type="Int32" Nullable="false" />
+          <Property Name="MonthEnd" Type="Int32" Nullable="false" />
+          <Property Name="YearStart" Type="Int32" Nullable="false" />
+          <Property Name="YearEnd" Type="Int32" Nullable="false" />
+          <Property Name="InstitutionName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModifiedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.fk_Education_createdBy" FromRole="Education" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser1" Relationship="Self.fk_Education_modifiedBy" FromRole="Education" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="LanguageCompetence">
+          <Key>
+            <PropertyRef Name="LanguageCompetenceId" />
+          </Key>
+          <Property Name="LanguageCompetenceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LanguageName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModifiedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LanguageCompetenceLevelId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.fk_LanguageCompetence_createdBy" FromRole="LanguageCompetence" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser1" Relationship="Self.fk_LanguageCompetence_modifiedBy" FromRole="LanguageCompetence" ToRole="AspNetUsers" />
+          <NavigationProperty Name="LanguageCompetenceLevel" Relationship="Self.fk_LanguageCompetence_LanguageCompetenceLevel" FromRole="LanguageCompetence" ToRole="LanguageCompetenceLevel" />
+        </EntityType>
+        <EntityType Name="LanguageCompetenceLevel">
+          <Key>
+            <PropertyRef Name="LanguageCompetenceLevelId" />
+          </Key>
+          <Property Name="LanguageCompetenceLevelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LevelName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModifiedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.fk_LanguageCompetenceLevel_createdBy" FromRole="LanguageCompetenceLevel" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser1" Relationship="Self.fk_LanguageCompetenceLevel_modifiedBy" FromRole="LanguageCompetenceLevel" ToRole="AspNetUsers" />
+          <NavigationProperty Name="LanguageCompetences" Relationship="Self.fk_LanguageCompetence_LanguageCompetenceLevel" FromRole="LanguageCompetenceLevel" ToRole="LanguageCompetence" />
+        </EntityType>
+        <EntityType Name="Salutation">
+          <Key>
+            <PropertyRef Name="SalutationId" />
+          </Key>
+          <Property Name="SalutationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShortName" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LongName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModifiedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Applicants" Relationship="Self.fk_Applicant_Salutation" FromRole="Salutations" ToRole="Applicant" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.fk_Salutation_createdBy" FromRole="Salutations" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser1" Relationship="Self.fk_Salutation_modifiedBy" FromRole="Salutations" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Contacts" Relationship="Self.fk_Contacts_Salutation" FromRole="Salutations" ToRole="Contacts" />
+        </EntityType>
+        <EntityType Name="Skill">
+          <Key>
+            <PropertyRef Name="SkillId" />
+          </Key>
+          <Property Name="SkillId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SkillName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModifiedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SkillLevelId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.fk_Skill_createdBy" FromRole="Skill" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser1" Relationship="Self.fk_Skill_modifiedBy" FromRole="Skill" ToRole="AspNetUsers" />
+          <NavigationProperty Name="SkillLevel" Relationship="Self.fk_Skill_SkillLevel" FromRole="Skill" ToRole="SkillLevel" />
+        </EntityType>
+        <EntityType Name="SkillLevel">
+          <Key>
+            <PropertyRef Name="SkillLevelId" />
+          </Key>
+          <Property Name="SkillLevelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LevelName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModifiedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.fk_SkillLevel_createdBy" FromRole="SkillLevel" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser1" Relationship="Self.fk_SkillLevel_modifiedBy" FromRole="SkillLevel" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Skills" Relationship="Self.fk_Skill_SkillLevel" FromRole="SkillLevel" ToRole="Skill" />
+        </EntityType>
+        <EntityType Name="TargetCompany">
+          <Key>
+            <PropertyRef Name="TargetCompanyId" />
+          </Key>
+          <Property Name="TargetCompanyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContactId" Type="Int32" Nullable="false" />
+          <Property Name="AddressId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModifiedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Address" Relationship="Self.fk_TargetCompany_Address" FromRole="TargetCompany" ToRole="Addresses" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.fk_TargetCompany_createdBy" FromRole="TargetCompany" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser1" Relationship="Self.fk_TargetCompany_modifiedBy" FromRole="TargetCompany" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Contact" Relationship="Self.fk_TargetCompany_Contact" FromRole="TargetCompany" ToRole="Contacts" />
+        </EntityType>
+        <EntityType Name="WorkExperience">
+          <Key>
+            <PropertyRef Name="WorkExperienceId" />
+          </Key>
+          <Property Name="WorkExperienceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreatedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModifiedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MonthStart" Type="Int32" Nullable="false" />
+          <Property Name="MonthEnd" Type="Int32" Nullable="false" />
+          <Property Name="YearStart" Type="Int32" Nullable="false" />
+          <Property Name="YearEnd" Type="Int32" Nullable="false" />
+          <Property Name="CompanyName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PositionHeld" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.fk_WorkExperience_createdBy" FromRole="WorkExperience" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser1" Relationship="Self.fk_WorkExperience_modifiedBy" FromRole="WorkExperience" ToRole="AspNetUsers" />
+        </EntityType>
+        <Association Name="fk_Address_createdBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="Addresses" Type="Self.Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Addresses">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Address_modifiedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="Addresses" Type="Self.Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Addresses">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Applicant_Addresses">
+          <End Role="Addresses" Type="Self.Address" Multiplicity="1" />
+          <End Role="Applicant" Type="Self.Applicant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="AddressId" />
+            </Principal>
+            <Dependent Role="Applicant">
+              <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Contacts_Address">
+          <End Role="Addresses" Type="Self.Address" Multiplicity="1" />
+          <End Role="Contacts" Type="Self.Contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="AddressId" />
+            </Principal>
+            <Dependent Role="Contacts">
+              <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TargetCompany_Address">
+          <End Role="Addresses" Type="Self.Address" Multiplicity="1" />
+          <End Role="TargetCompany" Type="Self.TargetCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Addresses">
+              <PropertyRef Name="AddressId" />
+            </Principal>
+            <Dependent Role="TargetCompany">
+              <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Applicant_createdBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="Applicant" Type="Self.Applicant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Applicant">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Applicant_CV">
+          <End Role="CV" Type="Self.CV" Multiplicity="1" />
+          <End Role="Applicant" Type="Self.Applicant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CV">
+              <PropertyRef Name="CVId" />
+            </Principal>
+            <Dependent Role="Applicant">
+              <PropertyRef Name="CVId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Applicant_modifiedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="Applicant" Type="Self.Applicant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Applicant">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Applicant_Professions_Applicant">
+          <End Role="Applicant" Type="Self.Applicant" Multiplicity="1" />
+          <End Role="Applicant_Professions" Type="Self.Applicant_Professions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Applicant">
+              <PropertyRef Name="ApplicantId" />
+            </Principal>
+            <Dependent Role="Applicant_Professions">
+              <PropertyRef Name="ApplicantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Applicant_Salutation">
+          <End Role="Salutations" Type="Self.Salutation" Multiplicity="1" />
+          <End Role="Applicant" Type="Self.Applicant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salutations">
+              <PropertyRef Name="SalutationId" />
+            </Principal>
+            <Dependent Role="Applicant">
+              <PropertyRef Name="SalutationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Applicant_Professions_createdBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="Applicant_Professions" Type="Self.Applicant_Professions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Applicant_Professions">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Applicant_Professions_modifiedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="Applicant_Professions" Type="Self.Applicant_Professions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Applicant_Professions">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Contacts_createdBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="Contacts" Type="Self.Contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contacts">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Contacts_modifiedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="Contacts" Type="Self.Contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contacts">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cv_createdBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="CV" Type="Self.CV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CV">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cv_modifiedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="CV" Type="Self.CV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CV">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Education_createdBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="Education" Type="Self.Education" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Education">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Education_modifiedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="Education" Type="Self.Education" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Education">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_LanguageCompetence_createdBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="LanguageCompetence" Type="Self.LanguageCompetence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LanguageCompetence">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_LanguageCompetence_modifiedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="LanguageCompetence" Type="Self.LanguageCompetence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LanguageCompetence">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_LanguageCompetenceLevel_createdBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="LanguageCompetenceLevel" Type="Self.LanguageCompetenceLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LanguageCompetenceLevel">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_LanguageCompetenceLevel_modifiedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="LanguageCompetenceLevel" Type="Self.LanguageCompetenceLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LanguageCompetenceLevel">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Salutation_createdBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="Salutations" Type="Self.Salutation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Salutations">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Salutation_modifiedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="Salutations" Type="Self.Salutation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Salutations">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Skill_createdBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="Skill" Type="Self.Skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Skill">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Skill_modifiedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="Skill" Type="Self.Skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Skill">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SkillLevel_createdBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="SkillLevel" Type="Self.SkillLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SkillLevel">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SkillLevel_modifiedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="SkillLevel" Type="Self.SkillLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SkillLevel">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TargetCompany_createdBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="TargetCompany" Type="Self.TargetCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TargetCompany">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TargetCompany_modifiedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="TargetCompany" Type="Self.TargetCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TargetCompany">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_WorkExperience_createdBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="WorkExperience" Type="Self.WorkExperience" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WorkExperience">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_WorkExperience_modifiedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="WorkExperience" Type="Self.WorkExperience" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WorkExperience">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Contacts_Salutation">
+          <End Role="Salutations" Type="Self.Salutation" Multiplicity="1" />
+          <End Role="Contacts" Type="Self.Contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Salutations">
+              <PropertyRef Name="SalutationId" />
+            </Principal>
+            <Dependent Role="Contacts">
+              <PropertyRef Name="SalutationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_TargetCompany_Contact">
+          <End Role="Contacts" Type="Self.Contact" Multiplicity="1" />
+          <End Role="TargetCompany" Type="Self.TargetCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contacts">
+              <PropertyRef Name="ContactId" />
+            </Principal>
+            <Dependent Role="TargetCompany">
+              <PropertyRef Name="ContactId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_LanguageCompetence_LanguageCompetenceLevel">
+          <End Role="LanguageCompetenceLevel" Type="Self.LanguageCompetenceLevel" Multiplicity="1" />
+          <End Role="LanguageCompetence" Type="Self.LanguageCompetence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LanguageCompetenceLevel">
+              <PropertyRef Name="LanguageCompetenceLevelId" />
+            </Principal>
+            <Dependent Role="LanguageCompetence">
+              <PropertyRef Name="LanguageCompetenceLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Skill_SkillLevel">
+          <End Role="SkillLevel" Type="Self.SkillLevel" Multiplicity="1" />
+          <End Role="Skill" Type="Self.Skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SkillLevel">
+              <PropertyRef Name="SkillLevelId" />
+            </Principal>
+            <Dependent Role="Skill">
+              <PropertyRef Name="SkillLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="ApplyEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="Addresses" EntityType="Self.Address" />
+          <EntitySet Name="Applicants" EntityType="Self.Applicant" />
+          <EntitySet Name="Applicant_Professions" EntityType="Self.Applicant_Professions" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <EntitySet Name="Contacts" EntityType="Self.Contact" />
+          <EntitySet Name="CVs" EntityType="Self.CV" />
+          <EntitySet Name="Educations" EntityType="Self.Education" />
+          <EntitySet Name="LanguageCompetences" EntityType="Self.LanguageCompetence" />
+          <EntitySet Name="LanguageCompetenceLevels" EntityType="Self.LanguageCompetenceLevel" />
+          <EntitySet Name="Salutations" EntityType="Self.Salutation" />
+          <EntitySet Name="Skills" EntityType="Self.Skill" />
+          <EntitySet Name="SkillLevels" EntityType="Self.SkillLevel" />
+          <EntitySet Name="TargetCompanies" EntityType="Self.TargetCompany" />
+          <EntitySet Name="WorkExperiences" EntityType="Self.WorkExperience" />
+          <AssociationSet Name="fk_Address_createdBy" Association="Self.fk_Address_createdBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Addresses" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Address_modifiedBy" Association="Self.fk_Address_modifiedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Addresses" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Applicant_Addresses" Association="Self.fk_Applicant_Addresses">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="Applicant" EntitySet="Applicants" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Contacts_Address" Association="Self.fk_Contacts_Address">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="Contacts" EntitySet="Contacts" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TargetCompany_Address" Association="Self.fk_TargetCompany_Address">
+            <End Role="Addresses" EntitySet="Addresses" />
+            <End Role="TargetCompany" EntitySet="TargetCompanies" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Applicant_createdBy" Association="Self.fk_Applicant_createdBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Applicant" EntitySet="Applicants" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Applicant_CV" Association="Self.fk_Applicant_CV">
+            <End Role="CV" EntitySet="CVs" />
+            <End Role="Applicant" EntitySet="Applicants" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Applicant_modifiedBy" Association="Self.fk_Applicant_modifiedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Applicant" EntitySet="Applicants" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Applicant_Professions_Applicant" Association="Self.fk_Applicant_Professions_Applicant">
+            <End Role="Applicant" EntitySet="Applicants" />
+            <End Role="Applicant_Professions" EntitySet="Applicant_Professions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Applicant_Salutation" Association="Self.fk_Applicant_Salutation">
+            <End Role="Salutations" EntitySet="Salutations" />
+            <End Role="Applicant" EntitySet="Applicants" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Applicant_Professions_createdBy" Association="Self.fk_Applicant_Professions_createdBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Applicant_Professions" EntitySet="Applicant_Professions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Applicant_Professions_modifiedBy" Association="Self.fk_Applicant_Professions_modifiedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Applicant_Professions" EntitySet="Applicant_Professions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Contacts_createdBy" Association="Self.fk_Contacts_createdBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Contacts" EntitySet="Contacts" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Contacts_modifiedBy" Association="Self.fk_Contacts_modifiedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Contacts" EntitySet="Contacts" />
+          </AssociationSet>
+          <AssociationSet Name="fk_cv_createdBy" Association="Self.fk_cv_createdBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CV" EntitySet="CVs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_cv_modifiedBy" Association="Self.fk_cv_modifiedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CV" EntitySet="CVs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Education_createdBy" Association="Self.fk_Education_createdBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Education" EntitySet="Educations" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Education_modifiedBy" Association="Self.fk_Education_modifiedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Education" EntitySet="Educations" />
+          </AssociationSet>
+          <AssociationSet Name="fk_LanguageCompetence_createdBy" Association="Self.fk_LanguageCompetence_createdBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="LanguageCompetence" EntitySet="LanguageCompetences" />
+          </AssociationSet>
+          <AssociationSet Name="fk_LanguageCompetence_modifiedBy" Association="Self.fk_LanguageCompetence_modifiedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="LanguageCompetence" EntitySet="LanguageCompetences" />
+          </AssociationSet>
+          <AssociationSet Name="fk_LanguageCompetenceLevel_createdBy" Association="Self.fk_LanguageCompetenceLevel_createdBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="LanguageCompetenceLevel" EntitySet="LanguageCompetenceLevels" />
+          </AssociationSet>
+          <AssociationSet Name="fk_LanguageCompetenceLevel_modifiedBy" Association="Self.fk_LanguageCompetenceLevel_modifiedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="LanguageCompetenceLevel" EntitySet="LanguageCompetenceLevels" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Salutation_createdBy" Association="Self.fk_Salutation_createdBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Salutations" EntitySet="Salutations" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Salutation_modifiedBy" Association="Self.fk_Salutation_modifiedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Salutations" EntitySet="Salutations" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Skill_createdBy" Association="Self.fk_Skill_createdBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Skill" EntitySet="Skills" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Skill_modifiedBy" Association="Self.fk_Skill_modifiedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Skill" EntitySet="Skills" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SkillLevel_createdBy" Association="Self.fk_SkillLevel_createdBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="SkillLevel" EntitySet="SkillLevels" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SkillLevel_modifiedBy" Association="Self.fk_SkillLevel_modifiedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="SkillLevel" EntitySet="SkillLevels" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TargetCompany_createdBy" Association="Self.fk_TargetCompany_createdBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="TargetCompany" EntitySet="TargetCompanies" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TargetCompany_modifiedBy" Association="Self.fk_TargetCompany_modifiedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="TargetCompany" EntitySet="TargetCompanies" />
+          </AssociationSet>
+          <AssociationSet Name="fk_WorkExperience_createdBy" Association="Self.fk_WorkExperience_createdBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="WorkExperience" EntitySet="WorkExperiences" />
+          </AssociationSet>
+          <AssociationSet Name="fk_WorkExperience_modifiedBy" Association="Self.fk_WorkExperience_modifiedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="WorkExperience" EntitySet="WorkExperiences" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Contacts_Salutation" Association="Self.fk_Contacts_Salutation">
+            <End Role="Salutations" EntitySet="Salutations" />
+            <End Role="Contacts" EntitySet="Contacts" />
+          </AssociationSet>
+          <AssociationSet Name="fk_TargetCompany_Contact" Association="Self.fk_TargetCompany_Contact">
+            <End Role="Contacts" EntitySet="Contacts" />
+            <End Role="TargetCompany" EntitySet="TargetCompanies" />
+          </AssociationSet>
+          <AssociationSet Name="fk_LanguageCompetence_LanguageCompetenceLevel" Association="Self.fk_LanguageCompetence_LanguageCompetenceLevel">
+            <End Role="LanguageCompetenceLevel" EntitySet="LanguageCompetenceLevels" />
+            <End Role="LanguageCompetence" EntitySet="LanguageCompetences" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Skill_SkillLevel" Association="Self.fk_Skill_SkillLevel">
+            <End Role="SkillLevel" EntitySet="SkillLevels" />
+            <End Role="Skill" EntitySet="Skills" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ApplyModelStoreContainer" CdmEntityContainer="ApplyEntities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="ApplyModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="ApplyModel.Address">
+              <MappingFragment StoreEntitySet="Addresses">
+                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="PostCode" ColumnName="PostCode" />
+                <ScalarProperty Name="Town" ColumnName="Town" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="HouseNr" ColumnName="HouseNr" />
+                <ScalarProperty Name="DoorNr" ColumnName="DoorNr" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="ModifiedById" ColumnName="ModifiedById" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Applicants">
+            <EntityTypeMapping TypeName="ApplyModel.Applicant">
+              <MappingFragment StoreEntitySet="Applicant">
+                <ScalarProperty Name="ApplicantId" ColumnName="ApplicantId" />
+                <ScalarProperty Name="ForeName" ColumnName="ForeName" />
+                <ScalarProperty Name="SurName" ColumnName="SurName" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+                <ScalarProperty Name="SalutationId" ColumnName="SalutationId" />
+                <ScalarProperty Name="CVId" ColumnName="CVId" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="ModifiedById" ColumnName="ModifiedById" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Applicant_Professions">
+            <EntityTypeMapping TypeName="ApplyModel.Applicant_Professions">
+              <MappingFragment StoreEntitySet="Applicant_Professions">
+                <ScalarProperty Name="Applicant_ProfessionsId" ColumnName="Applicant_ProfessionsId" />
+                <ScalarProperty Name="ApplicantId" ColumnName="ApplicantId" />
+                <ScalarProperty Name="Profession" ColumnName="Profession" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="ModifiedById" ColumnName="ModifiedById" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="ApplyModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="ApplyModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="ApplyModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="ApplyModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Forename" ColumnName="Forename" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contacts">
+            <EntityTypeMapping TypeName="ApplyModel.Contact">
+              <MappingFragment StoreEntitySet="Contacts">
+                <ScalarProperty Name="ContactId" ColumnName="ContactId" />
+                <ScalarProperty Name="SalutationId" ColumnName="SalutationId" />
+                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="ModifiedById" ColumnName="ModifiedById" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CVs">
+            <EntityTypeMapping TypeName="ApplyModel.CV">
+              <MappingFragment StoreEntitySet="CV">
+                <ScalarProperty Name="CVId" ColumnName="CVId" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="ModifiedById" ColumnName="ModifiedById" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Educations">
+            <EntityTypeMapping TypeName="ApplyModel.Education">
+              <MappingFragment StoreEntitySet="Education">
+                <ScalarProperty Name="EducationId" ColumnName="EducationId" />
+                <ScalarProperty Name="MonthStart" ColumnName="MonthStart" />
+                <ScalarProperty Name="MonthEnd" ColumnName="MonthEnd" />
+                <ScalarProperty Name="YearStart" ColumnName="YearStart" />
+                <ScalarProperty Name="YearEnd" ColumnName="YearEnd" />
+                <ScalarProperty Name="InstitutionName" ColumnName="InstitutionName" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="ModifiedById" ColumnName="ModifiedById" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LanguageCompetences">
+            <EntityTypeMapping TypeName="ApplyModel.LanguageCompetence">
+              <MappingFragment StoreEntitySet="LanguageCompetence">
+                <ScalarProperty Name="LanguageCompetenceId" ColumnName="LanguageCompetenceId" />
+                <ScalarProperty Name="LanguageName" ColumnName="LanguageName" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="ModifiedById" ColumnName="ModifiedById" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="LanguageCompetenceLevelId" ColumnName="LanguageCompetenceLevelId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LanguageCompetenceLevels">
+            <EntityTypeMapping TypeName="ApplyModel.LanguageCompetenceLevel">
+              <MappingFragment StoreEntitySet="LanguageCompetenceLevel">
+                <ScalarProperty Name="LanguageCompetenceLevelId" ColumnName="LanguageCompetenceLevelId" />
+                <ScalarProperty Name="LevelName" ColumnName="LevelName" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="ModifiedById" ColumnName="ModifiedById" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Salutations">
+            <EntityTypeMapping TypeName="ApplyModel.Salutation">
+              <MappingFragment StoreEntitySet="Salutations">
+                <ScalarProperty Name="SalutationId" ColumnName="SalutationId" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="LongName" ColumnName="LongName" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="ModifiedById" ColumnName="ModifiedById" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Skills">
+            <EntityTypeMapping TypeName="ApplyModel.Skill">
+              <MappingFragment StoreEntitySet="Skill">
+                <ScalarProperty Name="SkillId" ColumnName="SkillId" />
+                <ScalarProperty Name="SkillName" ColumnName="SkillName" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="ModifiedById" ColumnName="ModifiedById" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="SkillLevelId" ColumnName="SkillLevelId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SkillLevels">
+            <EntityTypeMapping TypeName="ApplyModel.SkillLevel">
+              <MappingFragment StoreEntitySet="SkillLevel">
+                <ScalarProperty Name="SkillLevelId" ColumnName="SkillLevelId" />
+                <ScalarProperty Name="LevelName" ColumnName="LevelName" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="ModifiedById" ColumnName="ModifiedById" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TargetCompanies">
+            <EntityTypeMapping TypeName="ApplyModel.TargetCompany">
+              <MappingFragment StoreEntitySet="TargetCompany">
+                <ScalarProperty Name="TargetCompanyId" ColumnName="TargetCompanyId" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ContactId" ColumnName="ContactId" />
+                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="ModifiedById" ColumnName="ModifiedById" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkExperiences">
+            <EntityTypeMapping TypeName="ApplyModel.WorkExperience">
+              <MappingFragment StoreEntitySet="WorkExperience">
+                <ScalarProperty Name="WorkExperienceId" ColumnName="WorkExperienceId" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="ModifiedById" ColumnName="ModifiedById" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="MonthStart" ColumnName="MonthStart" />
+                <ScalarProperty Name="MonthEnd" ColumnName="MonthEnd" />
+                <ScalarProperty Name="YearStart" ColumnName="YearStart" />
+                <ScalarProperty Name="YearEnd" ColumnName="YearEnd" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="PositionHeld" ColumnName="PositionHeld" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="ApplyModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

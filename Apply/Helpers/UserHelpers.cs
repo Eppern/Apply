@@ -79,7 +79,8 @@ namespace Apply.Helpers {
                 user.Forename = info.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.GivenName).Value;
                 var gender = info.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == "gender").Value;
                 //var ImageURL = info.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == "image").Value;
-                user.Surname = info.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Surname).Value;
+                if (user != null)
+                    user.Surname = info.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Surname).Value;
             }
 
             else if (info.Login.LoginProvider == "Facebook") {

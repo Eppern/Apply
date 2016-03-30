@@ -52,6 +52,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -180,8 +182,77 @@
     </Compile>
     <Compile Include="Helpers\UserHelpers.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Address.cs">
+      <DependentUpon>ApplyModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Applicant.cs">
+      <DependentUpon>ApplyModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Applicant_Professions.cs">
+      <DependentUpon>ApplyModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ApplyModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ApplyModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ApplyModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ApplyModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ApplyModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ApplyModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetRole.cs">
+      <DependentUpon>ApplyModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUser.cs">
+      <DependentUpon>ApplyModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserClaim.cs">
+      <DependentUpon>ApplyModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserLogin.cs">
+      <DependentUpon>ApplyModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Contact.cs">
+      <DependentUpon>ApplyModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CV.cs">
+      <DependentUpon>ApplyModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C__MigrationHistory.cs">
+      <DependentUpon>ApplyModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Education.cs">
+      <DependentUpon>ApplyModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\LanguageCompetence.cs">
+      <DependentUpon>ApplyModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LanguageCompetenceLevel.cs">
+      <DependentUpon>ApplyModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Salutation.cs">
+      <DependentUpon>ApplyModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Skill.cs">
+      <DependentUpon>ApplyModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SkillLevel.cs">
+      <DependentUpon>ApplyModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TargetCompany.cs">
+      <DependentUpon>ApplyModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WorkExperience.cs">
+      <DependentUpon>ApplyModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -195,15 +266,32 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\ApplyModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ApplyModel.edmx</DependentUpon>
+      <LastGenOutput>ApplyModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ApplyModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ApplyModel.edmx</DependentUpon>
+      <LastGenOutput>ApplyModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\fonts\FontAwesome.otf" />
     <Content Include="Content\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <EntityDeploy Include="Models\ApplyModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ApplyModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ApplyModel.edmx.diagram">
+      <DependentUpon>ApplyModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\createTables.sql" />
-    <Content Include="Scripts\identity.sql" />
+    <Content Include="Scripts\SqlScripts\createTables.sql" />
+    <Content Include="Scripts\SqlScripts\identity.sql" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -260,6 +348,9 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
