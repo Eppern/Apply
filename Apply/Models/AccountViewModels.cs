@@ -49,9 +49,8 @@ namespace Apply.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "E-Mail")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "Benutzername")]
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -68,6 +67,10 @@ namespace Apply.Models
         [EmailAddress]
         [Display(Name = "E-Mail")]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Benutzername")]
+        public string UserName { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "\"{0}\" muss mindestens {2} Zeichen lang sein.", MinimumLength = 6)]

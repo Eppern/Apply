@@ -77,14 +77,8 @@ namespace Apply.Helpers {
         public static ApplicationUser GetUserDetailsFromExternalProvider(ApplicationUser user, ExternalLoginInfo info) {
             if (info.Login.LoginProvider == "Google") {
                 user.Forename = info.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.GivenName).Value;
-                //var gender = info.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == "gender").Value;
-                //var ImageURL = info.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == "image").Value;
-                if (user != null)
-                    user.Surname = info.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Surname).Value;
-            }
-
-            else if (info.Login.LoginProvider == "Facebook") {
-
+                user.Surname = info.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Surname).Value;
+                user.UserName = info.ExternalIdentity.GetUserName();
             }
 
             return user;

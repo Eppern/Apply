@@ -12,7 +12,7 @@ namespace Apply.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            UserHelpers.CreateAspNetRoles();
+            //UserHelpers.CreateAspNetRoles();
             return View();
         }
 
