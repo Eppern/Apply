@@ -77,7 +77,7 @@ namespace Apply.Helpers {
         public static ApplicationUser GetUserDetailsFromExternalProvider(ApplicationUser user, ExternalLoginInfo info) {
             if (info.Login.LoginProvider == "Google") {
                 user.Forename = info.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.GivenName).Value;
-                var gender = info.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == "gender").Value;
+                //var gender = info.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == "gender").Value;
                 //var ImageURL = info.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == "image").Value;
                 if (user != null)
                     user.Surname = info.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Surname).Value;
@@ -112,8 +112,8 @@ namespace Apply.Helpers {
         public enum Roles {
             SuperAdmin = 1,
             Admin = 1 << 1,
-            Mod = 1 << 2,
-            User = 1 << 3
+            User = 1 << 2,
+            InvitedCompany = 1 << 3
         };
     }
 }

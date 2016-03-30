@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Apply.Helpers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -368,9 +369,14 @@ namespace Apply.Controllers
                     return View("ExternalLoginFailure");
                 }
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+
+                user = UserHelpers.GetUserDetailsFromExternalProvider(user, info);
+
                 var result = await UserManager.CreateAsync(user);
+
                 if (result.Succeeded)
                 {
+                    UserHelpers.AddUserToRole(user, UserHelpers.Roles.User);
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
