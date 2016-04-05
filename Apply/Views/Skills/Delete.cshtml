@@ -1,0 +1,40 @@
+﻿@model Apply.Models.Skill
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+<h2>Fähigkeit Löschen</h2>
+
+<h3>Wollen Sie die Fähigkeit wirklich löschen?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SkillName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SkillName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SkillLevel.LevelName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SkillLevel.LevelName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Löschen" class="btn btn-default" /> |
+            @Html.ActionLink("Zurück", "Index")
+        </div>
+    }
+</div>

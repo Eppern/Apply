@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Apply.Models.LanguageCompetence>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+<h2 style="margin-left: 105px;">Sprachen</h2>
+
+<div id="ProgressBar">
+    @foreach (var item in Model.Where(s => s.CreatedById == ViewBag.currentUser))
+    {
+        int _progress=0;
+        switch (item.LanguageCompetenceLevelId)
+        {
+            case 1: _progress = 10;
+                break;
+            case 3:
+                _progress = 25;
+                break;
+            case 4:
+                _progress = 35;
+                break;
+            case 5:
+                _progress = 50;
+                break;
+            case 6:
+                _progress = 65;
+                break;
+            case 7:
+                _progress = 85;
+                break;
+            case 8:
+                _progress = 100;
+                break;
+            default:
+                break;
+        }
+        <p style="font-size: x-large; margin-left: 20px;">
+            @item.LanguageName
+        @Html.ActionLink("ändern", "Edit", new { id = item.LanguageCompetenceId }, new { Style = "font-size:14px;float:right;" })
+        @Html.ActionLink("löschen", "Delete", new { id = item.LanguageCompetenceId }, new { Style = "font-size:14px;float:right;margin-right: 20px;" })
+    </p>
+        <progress max="100" value="@_progress">
+        </progress>
+    }
+</div>
+<p>
+    <a href="@Url.Action("Create", "LanguageCompetences")" style="float:left">
+        <img src="@Url.Content("~/Pic/circle.svg")" style="height: 60px;width: 60px;" />
+    </a>
+</p>

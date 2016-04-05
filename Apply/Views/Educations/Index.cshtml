@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Apply.Models.Education>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+<h2 style="margin-left: 105px;">Schulische Ausbildung</h2>
+
+<section id="cd-timeline" class="cd-container">
+    @foreach (var item in Model.Where(s => s.CreatedById == ViewBag.currentUser))
+    {
+        <div class="cd-timeline-block">
+            <div class="cd-timeline-img cd-picture">
+            </div> <!-- cd-timeline-img -->
+
+            <div class="cd-timeline-content">
+                @Html.ActionLink("ändern", "Edit", new { id = item.EducationId }, new { Style = "font-size:14px;float:right;" })
+                @Html.ActionLink("löschen", "Delete", new { id = item.EducationId }, new { Style = "font-size:14px;float:right;margin-right: 20px;" })                
+                <h2>@item.InstitutionName</h2>
+                <p>@item.Notes</p>
+                <span class="cd-date">"@item.MonthStart @item.YearStart - @item.MonthEnd @item.YearEnd"</span>               
+            </div> <!-- cd-timeline-content -->
+        </div> <!-- cd-timeline-block -->
+    }
+</section>
+
+    <p>
+        <a href="@Url.Action("Create", "Educations")" style="float:left">
+            <img src="@Url.Content("~/Pic/circle.svg")" style="height: 60px;width: 60px;" />
+        </a>
+    </p>
+

@@ -175,8 +175,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\EducationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LanguageCompetencesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SkillsController.cs" />
+    <Compile Include="Controllers\WorkExperiencesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -263,8 +267,14 @@
     <Content Include="Content\fontawesome\font-awesome.css" />
     <Content Include="Content\fontawesome\font-awesome.min.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\Navbar\reset.css" />
+    <Content Include="Content\Navbar\style.css" />
+    <Content Include="Content\Navbar\styles.css" />
     <Content Include="Content\Sidebar\simple-sidebar.css" />
+    <Content Include="Content\Timeline\reset.css" />
+    <Content Include="Content\Timeline\style.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -278,6 +288,13 @@
       <DependentUpon>ApplyModel.edmx</DependentUpon>
       <LastGenOutput>ApplyModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Pic\buildings.svg" />
+    <Content Include="Pic\circle.svg" />
+    <Content Include="Pic\interface.svg" />
+    <Content Include="Pic\notes.svg" />
+    <Content Include="Pic\signs.svg" />
+    <Content Include="Pic\social.svg" />
+    <Content Include="Pic\tool.svg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\fonts\FontAwesome.otf" />
@@ -291,7 +308,15 @@
     <Content Include="Models\ApplyModel.edmx.diagram">
       <DependentUpon>ApplyModel.edmx</DependentUpon>
     </Content>
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <None Include="Properties\PublishProfiles\Rene.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery.shuffleLetters.js" />
+    <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\script.js" />
     <Content Include="Scripts\SqlScripts\createTables.sql" />
     <Content Include="Scripts\SqlScripts\identity.sql" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -347,9 +372,30 @@
     <Content Include="Views\Manage\Education.cshtml" />
     <Content Include="Views\Manage\Language.cshtml" />
     <Content Include="Views\Manage\Skills.cshtml" />
+    <Content Include="Views\Skills\Create.cshtml" />
+    <Content Include="Views\Skills\Delete.cshtml" />
+    <Content Include="Views\Skills\Details.cshtml" />
+    <Content Include="Views\Skills\Edit.cshtml" />
+    <Content Include="Views\Skills\Index.cshtml" />
+    <Content Include="Views\LanguageCompetences\Create.cshtml" />
+    <Content Include="Views\LanguageCompetences\Delete.cshtml" />
+    <Content Include="Views\LanguageCompetences\Details.cshtml" />
+    <Content Include="Views\LanguageCompetences\Edit.cshtml" />
+    <Content Include="Views\LanguageCompetences\Index.cshtml" />
+    <Content Include="Views\Educations\Create.cshtml" />
+    <Content Include="Views\Educations\Delete.cshtml" />
+    <Content Include="Views\Educations\Details.cshtml" />
+    <Content Include="Views\Educations\Edit.cshtml" />
+    <Content Include="Views\Educations\Index.cshtml" />
+    <Content Include="Views\WorkExperiences\Create.cshtml" />
+    <Content Include="Views\WorkExperiences\Delete.cshtml" />
+    <Content Include="Views\WorkExperiences\Details.cshtml" />
+    <Content Include="Views\WorkExperiences\Edit.cshtml" />
+    <Content Include="Views\WorkExperiences\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -361,6 +407,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

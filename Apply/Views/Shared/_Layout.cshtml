@@ -7,38 +7,53 @@
     <title>@ViewBag.Title - Meine ASP.NET-Anwendung</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Anwendungsname", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Startseite", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Info", "About", "Home")</li>
-                    <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
+    <header class="cd-header">
+        <a href="#0" class="cd-3d-nav-trigger">
+            Menu
+            <span></span>
+        </a>
+    </header>
+    <main>
+        <div class="container body-content">
+            @RenderBody()
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        @*<hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Meine ASP.NET-Anwendung</p>
-        </footer>*@
-    </div>
+    </main>
 
+    <nav class="cd-3d-nav-container">
+        <ul class="cd-3d-nav">
+            <li>@Html.ActionLink("Startseite", "Index", "Home")</li>
+            <li>@Html.ActionLink("Info", "About", "Home")</li>
+            <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
+            @using Microsoft.AspNet.Identity
+            @if (Request.IsAuthenticated)
+            {
+                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", style = "height:100%;" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <li id="1">
+                        @Html.ActionLink("Hallo " + User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                    </li>
+                    <li id="2">
+                        <a href="javascript:document.getElementById('logoutForm').submit()">Abmelden</a>
+                    </li>
+                }
+            }
+            else
+            {
+                    <li>@Html.ActionLink("Registrieren", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                    <li>@Html.ActionLink("Anmelden", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+            }
+        </ul>
+    </nav>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="~/Scripts/jquery.shuffleLetters.js"></script>
+    <script src="~/Scripts/script.js"></script>
+    <script src="~/Scripts/main.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

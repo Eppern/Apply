@@ -1,4 +1,13 @@
-﻿.SidebarButton {
+﻿#AddSkill {
+    height: 61px;
+    background-size: 60px 60px;
+    float: left;
+}
+
+
+/*SideBar*/
+
+.SidebarButton {
     position: relative;
     padding: 12px 12px;
     background-color: rgba(0, 0, 0, 0);
@@ -22,3 +31,140 @@
 .SidebarButton .icon-bar + .icon-bar + .icon-bar {
         background-color: #000;
 }
+
+.cd-3d-nav-trigger1 {
+  position: relative;
+  float: left;
+  height: 45px;
+  width: 45px;
+  top: -60px;
+  left: 10px;
+  /* replace text with background image */
+  overflow: hidden;
+  text-indent: 100%;
+  white-space: nowrap;
+  color: transparent;
+}
+.cd-3d-nav-trigger1 span,
+.cd-3d-nav-trigger1 span::before,
+.cd-3d-nav-trigger1 span::after {
+  /* hamburger icon in CSS */
+  position: absolute;
+  width: 28px;
+  height: 3px;
+  background-color: #FFF;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.cd-3d-nav-trigger1 span {
+  /* this is the central line */
+  top: 21px;
+  left: 8px;
+  -webkit-transition: background 0.2s 0.5s;
+  -moz-transition: background 0.2s 0.5s;
+  transition: background 0.2s 0.5s;
+}
+.cd-3d-nav-trigger1 span::before, .cd-3d-nav-trigger1 span:after {
+  content: '';
+  left: 0;
+  -webkit-transition: -webkit-transform 0.2s 0.5s;
+  -moz-transition: -moz-transform 0.2s 0.5s;
+  transition: transform 0.2s 0.5s;
+}
+.cd-3d-nav-trigger1 span::before {
+  bottom: 8px;
+}
+.cd-3d-nav-trigger1 span::after {
+  top: 8px;
+}
+
+
+/*ProgressBar*/
+
+/* Moving on to the styling, we'll start with the main progress bar first and then the value part of it. After that, we'll do some experiments :D */
+@media(min-width:768px) {
+    #ProgressBar{
+        width: 622px;
+    }
+
+    progress {
+        width: 600px;
+        height: 14px;
+        margin: 20px;
+        display: block;
+        /* Important Thing */
+        -webkit-appearance: none;
+        border: none;
+    }
+
+        /* All good till now. Now we'll style the background */
+        progress::-webkit-progress-bar {
+            background: black;
+            border-radius: 50px;
+            padding: 2px;
+            box-shadow: 0 1px 0px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        /* Now the value part */
+        progress::-webkit-progress-value {
+            border-radius: 50px;
+            box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.4);
+            background: -webkit-linear-gradient(45deg, transparent, transparent 33%, rgba(0, 0, 0, 0.1) 33%, rgba(0, 0, 0, 0.1) 66%, transparent 66%), -webkit-linear-gradient(top, rgba(255, 255, 255, 0.25), rgba(0, 0, 0, 0.2)), -webkit-linear-gradient(left, #ba7448, #c4672d);
+            /* Looks great, now animating it */
+            background-size: 25px 14px, 100% 100%, 100% 100%;
+            -webkit-animation: move 5s linear 0 infinite;
+        }
+}
+
+@media(max-width:768px) {
+        #ProgressBar{
+        width: 300px;
+        }
+        progress {
+        width: 300px;
+        height: 14px;
+        margin: 15px;
+        display: block;
+        /* Important Thing */
+        -webkit-appearance: none;
+        border: none;
+        }
+
+        /* All good till now. Now we'll style the background */
+        progress::-webkit-progress-bar {
+            background: black;
+            border-radius: 50px;
+            padding: 2px;
+            box-shadow: 0 1px 0px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        /* Now the value part */
+        progress::-webkit-progress-value {
+            border-radius: 50px;
+            box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.4);
+            background: -webkit-linear-gradient(45deg, transparent, transparent 33%, rgba(0, 0, 0, 0.1) 33%, rgba(0, 0, 0, 0.1) 66%, transparent 66%), -webkit-linear-gradient(top, rgba(255, 255, 255, 0.25), rgba(0, 0, 0, 0.2)), -webkit-linear-gradient(left, #ba7448, #c4672d);
+            /* Looks great, now animating it */
+            background-size: 25px 14px, 100% 100%, 100% 100%;
+            -webkit-animation: move 5s linear 0 infinite;
+        }
+}
+/* That's it! Now let's try creating a new stripe pattern and animate it using animation and keyframes properties  */
+
+@-webkit-keyframes move {
+	0% {background-position: 0px 0px, 0 0, 0 0}
+	100% {background-position: -100px 0px, 0 0, 0 0}
+}
+
+/* Prefix-free was creating issues with the animation */
+
+
+
+
+
+
+
+
+
+
+
+

@@ -12,58 +12,70 @@
     @Scripts.Render("~/bundles/bootstrap")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Anwendungsname", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Startseite", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Info", "About", "Home")</li>
-                    <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
-    </div>
+
+    <header class="cd-header">
+        <a href="#0" class="cd-3d-nav-trigger">
+            Menu
+            <span></span>
+        </a>
+    </header>
+    <nav class="cd-3d-nav-container">
+        <ul class="cd-3d-nav">
+            <li>@Html.ActionLink("Startseite", "Index", "Home")</li>
+            <li>@Html.ActionLink("Info", "About", "Home")</li>
+            <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
+            @using Microsoft.AspNet.Identity
+            @if (Request.IsAuthenticated)
+            {
+                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", style = "height:100%;" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <li class="cd-3d-nav">
+                        @Html.ActionLink("Hallo " + User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                    </li>
+                    <li class="cd-3d-nav">
+                        <a href="javascript:document.getElementById('logoutForm').submit()">Abmelden</a>
+                    </li>
+                }
+            }
+            else
+            {
+                    <li>@Html.ActionLink("Registrieren", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                    <li>@Html.ActionLink("Anmelden", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+            }
+        </ul>
+    </nav>
+    <main>
         <div id="wrapper">
             <!-- Sidebar -->
             <div id="sidebar-wrapper">
                 <ul class="sidebar-nav">
                     <li>
-                        @Html.ActionLink("Info`s", "Index", "Manage")
+                       @Html.ActionLink("Info`s", "Index", "Manage")
                     </li>
                     <li>
                         @Html.ActionLink("Persönliche Daten", "Daten", "Manage")
                     </li>
                     <li>
-                        @Html.ActionLink("Berufserfahrung", "WorkEx", "Manage")
+                        @Html.ActionLink("Berufserfahrung", "Index", "WorkExperiences")
                     </li>
                     <li>
-                        @Html.ActionLink("Schulische Ausbildung", "Education", "Manage")
+                        @Html.ActionLink("Schulische Ausbildung", "Index", "Educations")
                     </li>
                     <li>
-                        @Html.ActionLink("Sprachen", "Language", "Manage")
+                        @Html.ActionLink("Sprachen", "Index", "LanguageCompetences")
                     </li>
                     <li>
-                        @Html.ActionLink("Fähigkeiten", "Skills", "Manage")
+                        @Html.ActionLink("Fähigkeiten", "Index", "Skills")
                     </li>
                 </ul>
             </div>
             <!-- /#sidebar-wrapper -->
             <!-- Page Content -->
             <div id="page-content-wrapper">
-                <button href="#menu-toggle" type="button" class="SidebarButton" id="menu-toggle">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+                <a href="#menu-toggle" class="cd-3d-nav-trigger1" id="menu-toggle">
+                    <span></span>
+                </a>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
@@ -74,8 +86,12 @@
             </div>
             <!-- /#page-content-wrapper -->
         </div>
+    </main>
 
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="~/Scripts/jquery.shuffleLetters.js"></script>
+    <script src="~/Scripts/script.js"></script>
+    <script src="~/Scripts/main.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

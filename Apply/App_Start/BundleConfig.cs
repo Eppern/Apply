@@ -25,6 +25,11 @@ namespace Apply
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/Navbar/reset.css",
+                      "~/Content/Navbar/style.css",
+                      "~/Content/Timeline/reset.css",
+                      "~/Content/Timeline/style.css",
+                      "~/Content/Navbar/styles.css",
                       "~/Content/Sidebar/simple-sidebar.css",
                       "~/Content/Extras.css",
                       "~/Content/site.css"));

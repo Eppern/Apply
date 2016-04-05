@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Web.Mvc;
 
 namespace Apply.Helpers {
     public static class UserHelpers {
@@ -109,5 +110,34 @@ namespace Apply.Helpers {
             User = 1 << 2,
             InvitedCompany = 1 << 3
         };
+
+        public static List<string> Month()
+        {            
+            List<string> month = new List<string> ();
+            month.Add("Jan");
+            month.Add("Feb");
+            month.Add("Mär");
+            month.Add("Apr");
+            month.Add("Mai");
+            month.Add("Jun");
+            month.Add("Jul");
+            month.Add("Aug");
+            month.Add("Sep");
+            month.Add("Okt");
+            month.Add("Nov");
+            month.Add("Dez");
+            return month;
+        }
+
+        public static List<int> Year()
+        {
+            List<int> year = new List<int>();
+
+            for (int i = DateTime.Now.Year; i > 1900 ; i--)
+            {
+                year.Add(i);
+            }
+            return year;
+        }
     }
 }

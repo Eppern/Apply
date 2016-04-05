@@ -1,0 +1,107 @@
+﻿@model Apply.Models.WorkExperience
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>WorkExperience</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateModified)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateModified)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MonthStart)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MonthStart)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MonthEnd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MonthEnd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.YearStart)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YearStart)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.YearEnd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YearEnd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CompanyName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompanyName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PositionHeld)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PositionHeld)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Notes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Notes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUser.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUser.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUser1.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUser1.Email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.WorkExperienceId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
