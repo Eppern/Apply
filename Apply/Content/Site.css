@@ -1,5 +1,6 @@
 ﻿body {
     padding-bottom: 20px;
+
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -41,3 +42,6 @@ button#Twitter {
 }
 
 /*#endregion*/
+p {
+    word-wrap: break-word;
+}

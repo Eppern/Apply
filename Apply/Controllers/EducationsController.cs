@@ -18,7 +18,7 @@ namespace Apply.Controllers
         // GET: Educations
         public ActionResult Index()
         {
-            var educations = db.Educations.Include(e => e.AspNetUser).Include(e => e.AspNetUser1);
+            var educations = db.Educations.Include(e => e.AspNetUser).Include(e => e.AspNetUser1).OrderByDescending(e => e.YearEnd);
             ViewBag.currentUser = db.AspNetUsers.Where(u => u.UserName == User.Identity.Name).Select(u => u.Id).FirstOrDefault();
             return View(educations.ToList());
         }

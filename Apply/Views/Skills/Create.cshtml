@@ -23,7 +23,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.SkillLevelId, "SkillLevelId", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.SkillLevelId, "Fähigkeitenstärke", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("SkillLevelId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.SkillLevelId, "", new { @class = "text-danger" })
