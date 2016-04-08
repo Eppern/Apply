@@ -157,12 +157,13 @@ namespace Apply.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
                     // Weitere Informationen zum Aktivieren der Kontobestätigung und Kennwortzurücksetzung finden Sie unter "http://go.microsoft.com/fwlink/?LinkID=320771".
                     // E-Mail-Nachricht mit diesem Link senden
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Konto bestätigen", "Bitte bestätigen Sie Ihr Konto. Klicken Sie dazu <a href=\"" + callbackUrl + "\">hier</a>");
+                    UserHelpers.CreateApplicantFromIdentity(user);                    
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -376,6 +377,7 @@ namespace Apply.Controllers
 
                 if (result.Succeeded)
                 {
+                    UserHelpers.CreateApplicantFromIdentity(user);
                     UserHelpers.AddUserToRole(user, UserHelpers.Roles.User);
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
@@ -430,6 +432,8 @@ namespace Apply.Controllers
         }
 
         #region Hilfsprogramme
+
+
         // Wird für XSRF-Schutz beim Hinzufügen externer Anmeldungen verwendet
         private const string XsrfKey = "XsrfId";
 

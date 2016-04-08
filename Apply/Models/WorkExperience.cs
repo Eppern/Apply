@@ -19,8 +19,8 @@ namespace Apply.Models
         public string ModifiedById { get; set; }
         public System.DateTime DateCreated { get; set; }
         public System.DateTime DateModified { get; set; }
-        public string MonthStart { get; set; }
-        public string MonthEnd { get; set; }
+        public int MonthStart { get; set; }
+        public int MonthEnd { get; set; }
         public int YearStart { get; set; }
         public int YearEnd { get; set; }
         public string CompanyName { get; set; }

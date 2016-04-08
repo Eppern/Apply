@@ -92,4 +92,13 @@ namespace Apply.Models
         [Display(Name = "Sprachenfähigkeit")]
         public string LevelName;
     }
+
+    public class ApplicantMetadata {
+        [Display(Name = "Geburtsdatum")]
+        [DataType(DataType.Date)]
+        public DateTime DOB;
+
+        [Display(Name = "Titel")]
+        public string Title;
+    }
 }

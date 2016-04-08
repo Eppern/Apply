@@ -1,0 +1,70 @@
+﻿@model Apply.Models.PersonalInfoViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Applicant</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Applicant.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Applicant.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Applicant.Salutation.ShortName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Applicant.Salutation.ShortName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Applicant.ForeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Applicant.ForeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Applicant.SurName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Applicant.SurName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Applicant.DOB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Applicant.DOB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Applicant.Address.Street)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Applicant.Address.Street)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Applicant.Salutation.ShortName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Applicant.Salutation.ShortName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Bearbeiten", "Edit")
+</p>

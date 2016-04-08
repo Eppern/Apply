@@ -41,4 +41,9 @@ namespace Apply.Models
     {
 
     }
+
+    [MetadataType(typeof(ApplicantMetadata))]
+    public partial class Applicant {
+
+    }
 }

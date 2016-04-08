@@ -15,7 +15,7 @@ namespace Apply.Models
     public partial class Applicant_Professions
     {
         public int Applicant_ProfessionsId { get; set; }
-        public int ApplicantId { get; set; }
+        public string ApplicantId { get; set; }
         public string Profession { get; set; }
         public string CreatedById { get; set; }
         public string ModifiedById { get; set; }

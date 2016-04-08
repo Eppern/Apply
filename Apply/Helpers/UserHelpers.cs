@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Web.Mvc;
+using System.Data.SqlClient;
 
 namespace Apply.Helpers {
     public static class UserHelpers {
@@ -86,20 +87,42 @@ namespace Apply.Helpers {
         }
 
         public static string GetExternalProviderGlyphicon(string provider) {
+            var result = "";
             switch (provider) {
                 case "Google":
-                    return "google-plus";
+                    result = "google-plus";
                     break;
                 case "Facebook":
-                    return "facebook";
+                    result = "facebook";
                     break;
                 case "Twitter":
-                    return "twitter";
+                    result = "twitter";
                     break;
                 default:
                     //error (provider prob changed their name), use a generic button
-                    return "";
                     break;
+            }
+            return result;
+        }
+
+        public static void CreateApplicantFromIdentity(ApplicationUser user) {
+            //create applicant
+            var applicant = new Applicant();
+            applicant.ApplicantId = user.Id;
+            applicant.ForeName = user.Forename?? "";
+            applicant.SurName = user.Surname?? "";
+            applicant.CreatedById = user.Id;
+            applicant.ModifiedById = user.Id;
+            applicant.DateCreated = DateTime.Now;
+            applicant.DateModified = applicant.DateCreated;
+            var db = new ApplyEntities();
+            try {
+                db.Applicants.Add(applicant);
+                db.SaveChanges();
+            }
+            catch (SqlException ex) {
+
+                throw;
             }
         }
 

@@ -29,6 +29,8 @@ namespace Apply.Models
             this.Contacts1 = new HashSet<Contact>();
             this.CVs = new HashSet<CV>();
             this.CVs1 = new HashSet<CV>();
+            this.Educations = new HashSet<Education>();
+            this.Educations1 = new HashSet<Education>();
             this.LanguageCompetences = new HashSet<LanguageCompetence>();
             this.LanguageCompetences1 = new HashSet<LanguageCompetence>();
             this.LanguageCompetenceLevels = new HashSet<LanguageCompetenceLevel>();
@@ -41,11 +43,9 @@ namespace Apply.Models
             this.SkillLevels1 = new HashSet<SkillLevel>();
             this.TargetCompanies = new HashSet<TargetCompany>();
             this.TargetCompanies1 = new HashSet<TargetCompany>();
-            this.AspNetRoles = new HashSet<AspNetRole>();
-            this.Educations = new HashSet<Education>();
-            this.Educations1 = new HashSet<Education>();
             this.WorkExperiences = new HashSet<WorkExperience>();
             this.WorkExperiences1 = new HashSet<WorkExperience>();
+            this.AspNetRoles = new HashSet<AspNetRole>();
         }
     
         public string Id { get; set; }
@@ -88,6 +88,10 @@ namespace Apply.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CV> CVs1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Education> Educations { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Education> Educations1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LanguageCompetence> LanguageCompetences { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LanguageCompetence> LanguageCompetences1 { get; set; }
@@ -112,14 +116,10 @@ namespace Apply.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TargetCompany> TargetCompanies1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Education> Educations { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Education> Educations1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WorkExperience> WorkExperiences { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WorkExperience> WorkExperiences1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
     }
 }

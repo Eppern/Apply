@@ -179,6 +179,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LanguageCompetencesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PersonalInfoController.cs" />
     <Compile Include="Controllers\SkillsController.cs" />
     <Compile Include="Controllers\WorkExperiencesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -244,6 +245,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Metadata.cs" />
     <Compile Include="Models\PartialClasses.cs" />
+    <Compile Include="Models\PersonalInfoViewModel.cs" />
     <Compile Include="Models\Salutation.cs">
       <DependentUpon>ApplyModel.tt</DependentUpon>
     </Compile>
@@ -303,6 +305,10 @@
     <Content Include="Content\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\FontAwesome.otf" />
     <EntityDeploy Include="Models\ApplyModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ApplyModel.Designer.cs</LastGenOutput>
@@ -310,15 +316,12 @@
     <Content Include="Models\ApplyModel.edmx.diagram">
       <DependentUpon>ApplyModel.edmx</DependentUpon>
     </Content>
-    <Content Include="fonts\fontawesome-webfont.eot" />
-    <Content Include="fonts\fontawesome-webfont.ttf" />
-    <Content Include="fonts\fontawesome-webfont.woff" />
-    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Properties\PublishProfiles\Rene.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery.shuffleLetters.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\script.js" />
+    <Content Include="Scripts\SqlScripts\20160408_AmmendApplicantPK.sql" />
     <Content Include="Scripts\SqlScripts\createTables.sql" />
     <Content Include="Scripts\SqlScripts\identity.sql" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -394,6 +397,9 @@
     <Content Include="Views\WorkExperiences\Details.cshtml" />
     <Content Include="Views\WorkExperiences\Edit.cshtml" />
     <Content Include="Views\WorkExperiences\Index.cshtml" />
+    <Content Include="Views\PersonalInfo\Delete.cshtml" />
+    <Content Include="Views\PersonalInfo\Details.cshtml" />
+    <Content Include="Views\PersonalInfo\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
