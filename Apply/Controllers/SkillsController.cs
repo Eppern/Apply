@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Apply.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Apply.Controllers
 {
@@ -82,8 +83,6 @@ namespace Apply.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CreatedById = new SelectList(db.AspNetUsers, "Id", "Email", skill.CreatedById);
-            ViewBag.ModifiedById = new SelectList(db.AspNetUsers, "Id", "Email", skill.ModifiedById);
             ViewBag.SkillLevelId = new SelectList(db.SkillLevels, "SkillLevelId", "LevelName", skill.SkillLevelId);
             return View(skill);
         }
@@ -93,15 +92,15 @@ namespace Apply.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SkillId,SkillName,CreatedById,ModifiedById,DateCreated,DateModified,SkillLevelId")] Skill skill)
+        public ActionResult Edit([Bind(Include = "SkillId,SkillName,SkillLevelId")] Skill skill)
         {
             if (ModelState.IsValid)
             {
+                db.Entry(skill).State = EntityState.Modified;
+                skill.DateModified = DateTime.Now;
+                skill.ModifiedById = User.Identity.GetUserId();
                 db.Entry(skill).Property(x => x.CreatedById).IsModified = false;
                 db.Entry(skill).Property(x => x.DateCreated).IsModified = false;
-                skill.ModifiedById = (db.AspNetUsers.Where(u => u.UserName == User.Identity.Name).Select(u => u.Id).FirstOrDefault());
-                skill.DateModified = DateTime.Now;
-                db.Entry(skill).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

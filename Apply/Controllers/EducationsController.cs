@@ -99,11 +99,11 @@ namespace Apply.Controllers
         {
             if (ModelState.IsValid)
             {
+                db.Entry(education).State = EntityState.Modified;
                 db.Entry(education).Property(x => x.CreatedById).IsModified = false;
                 db.Entry(education).Property(x => x.DateCreated).IsModified = false;
                 education.ModifiedById = (db.AspNetUsers.Where(u => u.UserName == User.Identity.Name).Select(u => u.Id).FirstOrDefault());
                 education.DateModified = DateTime.Now;
-                db.Entry(education).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

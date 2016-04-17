@@ -99,11 +99,11 @@ namespace Apply.Controllers
         {
             if (ModelState.IsValid)
             {
+                db.Entry(workExperience).State = EntityState.Modified;
                 db.Entry(workExperience).Property(x => x.CreatedById).IsModified = false;
                 db.Entry(workExperience).Property(x => x.DateCreated).IsModified = false;
                 workExperience.ModifiedById = (db.AspNetUsers.Where(u => u.UserName == User.Identity.Name).Select(u => u.Id).FirstOrDefault());
                 workExperience.DateModified = DateTime.Now;
-                db.Entry(workExperience).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

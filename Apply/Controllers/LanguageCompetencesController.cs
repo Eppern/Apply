@@ -97,11 +97,11 @@ namespace Apply.Controllers
         {
             if (ModelState.IsValid)
             {
+                db.Entry(languageCompetence).State = EntityState.Modified;
                 db.Entry(languageCompetence).Property(x => x.CreatedById).IsModified = false;
                 db.Entry(languageCompetence).Property(x => x.DateCreated).IsModified = false;
                 languageCompetence.ModifiedById = (db.AspNetUsers.Where(u => u.UserName == User.Identity.Name).Select(u => u.Id).FirstOrDefault());
                 languageCompetence.DateModified = DateTime.Now;
-                db.Entry(languageCompetence).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

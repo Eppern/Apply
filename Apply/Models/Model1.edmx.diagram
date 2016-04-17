@@ -4,23 +4,26 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="32d888bf19604274bf37a04a4ffd6c8a" Name="Diagram1">
+      <Diagram DiagramId="e4219b252fdf4d3ca8700b61ca00d2b3" Name="Diagram1">
         <EntityTypeShape EntityType="ApplyModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ApplyModel.Address" Width="1.5" PointX="5.25" PointY="9" IsExpanded="true" />
-        <EntityTypeShape EntityType="ApplyModel.Applicant" Width="1.5" PointX="7.5" PointY="20.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ApplyModel.Applicant_Professions" Width="1.5" PointX="9.75" PointY="25.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ApplyModel.AspNetRole" Width="1.5" PointX="0.75" PointY="24.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ApplyModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="14" IsExpanded="true" />
-        <EntityTypeShape EntityType="ApplyModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="16.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ApplyModel.AspNetUser" Width="1.5" PointX="3" PointY="20.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ApplyModel.Contact" Width="1.5" PointX="10.5" PointY="21.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ApplyModel.CV" Width="1.5" PointX="5.25" PointY="19.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ApplyModel.LanguageCompetence" Width="1.5" PointX="7.5" PointY="26.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ApplyModel.LanguageCompetenceLevel" Width="1.5" PointX="5.25" PointY="30.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ApplyModel.Salutation" Width="1.5" PointX="5.25" PointY="34" IsExpanded="true" />
-        <EntityTypeShape EntityType="ApplyModel.Skill" Width="1.5" PointX="7.5" PointY="31" IsExpanded="true" />
-        <EntityTypeShape EntityType="ApplyModel.SkillLevel" Width="1.5" PointX="5.25" PointY="41.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ApplyModel.TargetCompany" Width="1.5" PointX="12.75" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApplyModel.Address" Width="1.5" PointX="5.25" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApplyModel.Applicant" Width="1.5" PointX="7.5" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApplyModel.Applicant_Professions" Width="1.5" PointX="9.75" PointY="27.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApplyModel.AspNetRole" Width="1.5" PointX="0.75" PointY="26.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApplyModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApplyModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApplyModel.AspNetUser" Width="1.5" PointX="3" PointY="22.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApplyModel.Company" Width="1.5" PointX="5.25" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApplyModel.Contact" Width="1.5" PointX="10.5" PointY="23.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApplyModel.CV" Width="1.5" PointX="5.25" PointY="23" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApplyModel.Education" Width="1.5" PointX="5.25" PointY="26.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApplyModel.LanguageCompetence" Width="1.5" PointX="7.5" PointY="28.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApplyModel.LanguageCompetenceLevel" Width="1.5" PointX="5.25" PointY="34.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApplyModel.Salutation" Width="1.5" PointX="5.25" PointY="37.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApplyModel.Skill" Width="1.5" PointX="7.5" PointY="33.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApplyModel.SkillLevel" Width="1.5" PointX="5.25" PointY="45.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApplyModel.TargetCompany" Width="1.5" PointX="12.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApplyModel.WorkExperience" Width="1.5" PointX="5.25" PointY="48.75" IsExpanded="true" />
         <AssociationConnector Association="ApplyModel.fk_Address_createdBy" ManuallyRouted="false" />
         <AssociationConnector Association="ApplyModel.fk_Address_modifiedBy" ManuallyRouted="false" />
         <AssociationConnector Association="ApplyModel.fk_Applicant_Addresses" ManuallyRouted="false" />
@@ -35,10 +38,13 @@
         <AssociationConnector Association="ApplyModel.fk_Applicant_Professions_modifiedBy" ManuallyRouted="false" />
         <AssociationConnector Association="ApplyModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="ApplyModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="ApplyModel.FK_Company_AspNetUser" ManuallyRouted="false" />
         <AssociationConnector Association="ApplyModel.fk_Contacts_createdBy" ManuallyRouted="false" />
         <AssociationConnector Association="ApplyModel.fk_Contacts_modifiedBy" ManuallyRouted="false" />
         <AssociationConnector Association="ApplyModel.fk_cv_createdBy" ManuallyRouted="false" />
         <AssociationConnector Association="ApplyModel.fk_cv_modifiedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="ApplyModel.fk_Education_createdBy" ManuallyRouted="false" />
+        <AssociationConnector Association="ApplyModel.fk_Education_modifiedBy" ManuallyRouted="false" />
         <AssociationConnector Association="ApplyModel.fk_LanguageCompetence_createdBy" ManuallyRouted="false" />
         <AssociationConnector Association="ApplyModel.fk_LanguageCompetence_modifiedBy" ManuallyRouted="false" />
         <AssociationConnector Association="ApplyModel.fk_LanguageCompetenceLevel_createdBy" ManuallyRouted="false" />
@@ -51,17 +57,13 @@
         <AssociationConnector Association="ApplyModel.fk_SkillLevel_modifiedBy" ManuallyRouted="false" />
         <AssociationConnector Association="ApplyModel.fk_TargetCompany_createdBy" ManuallyRouted="false" />
         <AssociationConnector Association="ApplyModel.fk_TargetCompany_modifiedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="ApplyModel.fk_WorkExperience_createdBy" ManuallyRouted="false" />
+        <AssociationConnector Association="ApplyModel.fk_WorkExperience_modifiedBy" ManuallyRouted="false" />
         <AssociationConnector Association="ApplyModel.fk_Contacts_Salutation" ManuallyRouted="false" />
         <AssociationConnector Association="ApplyModel.fk_TargetCompany_Contact" ManuallyRouted="false" />
         <AssociationConnector Association="ApplyModel.fk_LanguageCompetence_LanguageCompetenceLevel" ManuallyRouted="false" />
         <AssociationConnector Association="ApplyModel.fk_Skill_SkillLevel" ManuallyRouted="false" />
         <AssociationConnector Association="ApplyModel.AspNetUserRoles" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="ApplyModel.Education" Width="1.5" PointX="5.25" PointY="23.375" />
-        <AssociationConnector Association="ApplyModel.fk_Education_createdBy" />
-        <AssociationConnector Association="ApplyModel.fk_Education_modifiedBy" />
-        <EntityTypeShape EntityType="ApplyModel.WorkExperience" Width="1.5" PointX="5.25" PointY="4.25" />
-        <AssociationConnector Association="ApplyModel.fk_WorkExperience_createdBy" />
-        <AssociationConnector Association="ApplyModel.fk_WorkExperience_modifiedBy" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

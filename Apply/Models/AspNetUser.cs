@@ -25,10 +25,13 @@ namespace Apply.Models
             this.Applicant_Professions1 = new HashSet<Applicant_Professions>();
             this.AspNetUserClaims = new HashSet<AspNetUserClaim>();
             this.AspNetUserLogins = new HashSet<AspNetUserLogin>();
+            this.Companies = new HashSet<Company>();
             this.Contacts = new HashSet<Contact>();
             this.Contacts1 = new HashSet<Contact>();
             this.CVs = new HashSet<CV>();
             this.CVs1 = new HashSet<CV>();
+            this.Educations = new HashSet<Education>();
+            this.Educations1 = new HashSet<Education>();
             this.LanguageCompetences = new HashSet<LanguageCompetence>();
             this.LanguageCompetences1 = new HashSet<LanguageCompetence>();
             this.LanguageCompetenceLevels = new HashSet<LanguageCompetenceLevel>();
@@ -41,14 +44,14 @@ namespace Apply.Models
             this.SkillLevels1 = new HashSet<SkillLevel>();
             this.TargetCompanies = new HashSet<TargetCompany>();
             this.TargetCompanies1 = new HashSet<TargetCompany>();
-            this.AspNetRoles = new HashSet<AspNetRole>();
-            this.Educations = new HashSet<Education>();
-            this.Educations1 = new HashSet<Education>();
             this.WorkExperiences = new HashSet<WorkExperience>();
             this.WorkExperiences1 = new HashSet<WorkExperience>();
+            this.AspNetRoles = new HashSet<AspNetRole>();
         }
     
         public string Id { get; set; }
+        public string Surname { get; set; }
+        public string Forename { get; set; }
         public string Email { get; set; }
         public bool EmailConfirmed { get; set; }
         public string PasswordHash { get; set; }
@@ -60,8 +63,6 @@ namespace Apply.Models
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
         public string UserName { get; set; }
-        public string Forename { get; set; }
-        public string Surname { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Address> Addresses { get; set; }
@@ -80,6 +81,8 @@ namespace Apply.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Company> Companies { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Contact> Contacts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Contact> Contacts1 { get; set; }
@@ -87,6 +90,10 @@ namespace Apply.Models
         public virtual ICollection<CV> CVs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CV> CVs1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Education> Educations { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Education> Educations1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LanguageCompetence> LanguageCompetences { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -112,14 +119,10 @@ namespace Apply.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TargetCompany> TargetCompanies1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Education> Educations { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Education> Educations1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WorkExperience> WorkExperiences { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WorkExperience> WorkExperiences1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
     }
 }

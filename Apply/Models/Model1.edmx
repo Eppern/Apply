@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ApplyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ApplyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -113,6 +113,19 @@
           <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ContactName" Type="nvarchar" MaxLength="128" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Telephone" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Website" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="AspNetUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="Contacts">
           <Key>
@@ -358,6 +371,18 @@
             </Principal>
             <Dependent Role="Applicant">
               <PropertyRef Name="SalutationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Company_AspNetUser">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Company" Type="Self.Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="AspNetUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -739,6 +764,7 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contacts" EntityType="Self.Contacts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CV" EntityType="Self.CV" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Education" EntityType="Self.Education" Schema="dbo" store:Type="Tables" />
@@ -788,6 +814,10 @@
           <AssociationSet Name="fk_Applicant_Salutation" Association="Self.fk_Applicant_Salutation">
             <End Role="Salutations" EntitySet="Salutations" />
             <End Role="Applicant" EntitySet="Applicant" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Company_AspNetUser" Association="Self.FK_Company_AspNetUser">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Company" EntitySet="Company" />
           </AssociationSet>
           <AssociationSet Name="fk_Contacts_Address" Association="Self.fk_Contacts_Address">
             <End Role="Addresses" EntitySet="Addresses" />
@@ -910,7 +940,8 @@
             <End Role="WorkExperience" EntitySet="WorkExperience" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ApplyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1018,6 +1049,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Forename" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
           <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -1029,8 +1062,6 @@
           <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Forename" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Addresses" Relationship="Self.fk_Address_createdBy" FromRole="AspNetUsers" ToRole="Addresses" />
           <NavigationProperty Name="Addresses1" Relationship="Self.fk_Address_modifiedBy" FromRole="AspNetUsers" ToRole="Addresses" />
           <NavigationProperty Name="Applicants" Relationship="Self.fk_Applicant_createdBy" FromRole="AspNetUsers" ToRole="Applicant" />
@@ -1039,10 +1070,13 @@
           <NavigationProperty Name="Applicant_Professions1" Relationship="Self.fk_Applicant_Professions_modifiedBy" FromRole="AspNetUsers" ToRole="Applicant_Professions" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="Companies" Relationship="Self.FK_Company_AspNetUser" FromRole="AspNetUsers" ToRole="Company" />
           <NavigationProperty Name="Contacts" Relationship="Self.fk_Contacts_createdBy" FromRole="AspNetUsers" ToRole="Contacts" />
           <NavigationProperty Name="Contacts1" Relationship="Self.fk_Contacts_modifiedBy" FromRole="AspNetUsers" ToRole="Contacts" />
           <NavigationProperty Name="CVs" Relationship="Self.fk_cv_createdBy" FromRole="AspNetUsers" ToRole="CV" />
           <NavigationProperty Name="CVs1" Relationship="Self.fk_cv_modifiedBy" FromRole="AspNetUsers" ToRole="CV" />
+          <NavigationProperty Name="Educations" Relationship="Self.fk_Education_createdBy" FromRole="AspNetUsers" ToRole="Education" />
+          <NavigationProperty Name="Educations1" Relationship="Self.fk_Education_modifiedBy" FromRole="AspNetUsers" ToRole="Education" />
           <NavigationProperty Name="LanguageCompetences" Relationship="Self.fk_LanguageCompetence_createdBy" FromRole="AspNetUsers" ToRole="LanguageCompetence" />
           <NavigationProperty Name="LanguageCompetences1" Relationship="Self.fk_LanguageCompetence_modifiedBy" FromRole="AspNetUsers" ToRole="LanguageCompetence" />
           <NavigationProperty Name="LanguageCompetenceLevels" Relationship="Self.fk_LanguageCompetenceLevel_createdBy" FromRole="AspNetUsers" ToRole="LanguageCompetenceLevel" />
@@ -1055,11 +1089,23 @@
           <NavigationProperty Name="SkillLevels1" Relationship="Self.fk_SkillLevel_modifiedBy" FromRole="AspNetUsers" ToRole="SkillLevel" />
           <NavigationProperty Name="TargetCompanies" Relationship="Self.fk_TargetCompany_createdBy" FromRole="AspNetUsers" ToRole="TargetCompany" />
           <NavigationProperty Name="TargetCompanies1" Relationship="Self.fk_TargetCompany_modifiedBy" FromRole="AspNetUsers" ToRole="TargetCompany" />
+          <NavigationProperty Name="WorkExperiences" Relationship="Self.fk_WorkExperience_createdBy" FromRole="AspNetUsers" ToRole="WorkExperience" />
+          <NavigationProperty Name="WorkExperiences1" Relationship="Self.fk_WorkExperience_modifiedBy" FromRole="AspNetUsers" ToRole="WorkExperience" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
-          <NavigationProperty Name="Educations" Relationship="ApplyModel.fk_Education_createdBy" FromRole="AspNetUser" ToRole="Education" />
-          <NavigationProperty Name="Educations1" Relationship="ApplyModel.fk_Education_modifiedBy" FromRole="AspNetUser" ToRole="Education" />
-          <NavigationProperty Name="WorkExperiences" Relationship="ApplyModel.fk_WorkExperience_createdBy" FromRole="AspNetUser" ToRole="WorkExperience" />
-          <NavigationProperty Name="WorkExperiences1" Relationship="ApplyModel.fk_WorkExperience_modifiedBy" FromRole="AspNetUser" ToRole="WorkExperience" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContactName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="EmailAddress" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Telephone" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Website" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AspNetUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Company_AspNetUser" FromRole="Company" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="Contact">
           <Key>
@@ -1090,6 +1136,24 @@
           <NavigationProperty Name="Applicants" Relationship="Self.fk_Applicant_CV" FromRole="CV" ToRole="Applicant" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.fk_cv_createdBy" FromRole="CV" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUser1" Relationship="Self.fk_cv_modifiedBy" FromRole="CV" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="Education">
+          <Key>
+            <PropertyRef Name="EducationId" />
+          </Key>
+          <Property Name="EducationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MonthStart" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MonthEnd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="YearStart" Type="Int32" Nullable="false" />
+          <Property Name="YearEnd" Type="Int32" Nullable="false" />
+          <Property Name="InstitutionName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModifiedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.fk_Education_createdBy" FromRole="Education" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser1" Relationship="Self.fk_Education_modifiedBy" FromRole="Education" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="LanguageCompetence">
           <Key>
@@ -1182,6 +1246,25 @@
           <NavigationProperty Name="AspNetUser" Relationship="Self.fk_TargetCompany_createdBy" FromRole="TargetCompany" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUser1" Relationship="Self.fk_TargetCompany_modifiedBy" FromRole="TargetCompany" ToRole="AspNetUsers" />
           <NavigationProperty Name="Contact" Relationship="Self.fk_TargetCompany_Contact" FromRole="TargetCompany" ToRole="Contacts" />
+        </EntityType>
+        <EntityType Name="WorkExperience">
+          <Key>
+            <PropertyRef Name="WorkExperienceId" />
+          </Key>
+          <Property Name="WorkExperienceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreatedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModifiedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MonthStart" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MonthEnd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="YearStart" Type="Int32" Nullable="false" />
+          <Property Name="YearEnd" Type="Int32" Nullable="false" />
+          <Property Name="CompanyName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PositionHeld" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.fk_WorkExperience_createdBy" FromRole="WorkExperience" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser1" Relationship="Self.fk_WorkExperience_modifiedBy" FromRole="WorkExperience" ToRole="AspNetUsers" />
         </EntityType>
         <Association Name="fk_Address_createdBy">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
@@ -1355,6 +1438,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Company_AspNetUser">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="Company" Type="Self.Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="AspNetUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_Contacts_createdBy">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
           <End Role="Contacts" Type="Self.Contact" Multiplicity="*" />
@@ -1399,6 +1494,30 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="CV">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Education_createdBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="Education" Type="Self.Education" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Education">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Education_modifiedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="Education" Type="Self.Education" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Education">
               <PropertyRef Name="ModifiedById" />
             </Dependent>
           </ReferentialConstraint>
@@ -1547,6 +1666,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_WorkExperience_createdBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="WorkExperience" Type="Self.WorkExperience" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WorkExperience">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_WorkExperience_modifiedBy">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="WorkExperience" Type="Self.WorkExperience" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WorkExperience">
+              <PropertyRef Name="ModifiedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_Contacts_Salutation">
           <End Role="Salutations" Type="Self.Salutation" Multiplicity="1" />
           <End Role="Contacts" Type="Self.Contact" Multiplicity="*" />
@@ -1608,14 +1751,17 @@
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <EntitySet Name="Companies" EntityType="Self.Company" />
           <EntitySet Name="Contacts" EntityType="Self.Contact" />
           <EntitySet Name="CVs" EntityType="Self.CV" />
+          <EntitySet Name="Educations" EntityType="Self.Education" />
           <EntitySet Name="LanguageCompetences" EntityType="Self.LanguageCompetence" />
           <EntitySet Name="LanguageCompetenceLevels" EntityType="Self.LanguageCompetenceLevel" />
           <EntitySet Name="Salutations" EntityType="Self.Salutation" />
           <EntitySet Name="Skills" EntityType="Self.Skill" />
           <EntitySet Name="SkillLevels" EntityType="Self.SkillLevel" />
           <EntitySet Name="TargetCompanies" EntityType="Self.TargetCompany" />
+          <EntitySet Name="WorkExperiences" EntityType="Self.WorkExperience" />
           <AssociationSet Name="fk_Address_createdBy" Association="Self.fk_Address_createdBy">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Addresses" EntitySet="Addresses" />
@@ -1672,6 +1818,10 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
+          <AssociationSet Name="FK_Company_AspNetUser" Association="Self.FK_Company_AspNetUser">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Company" EntitySet="Companies" />
+          </AssociationSet>
           <AssociationSet Name="fk_Contacts_createdBy" Association="Self.fk_Contacts_createdBy">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Contacts" EntitySet="Contacts" />
@@ -1687,6 +1837,14 @@
           <AssociationSet Name="fk_cv_modifiedBy" Association="Self.fk_cv_modifiedBy">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="CV" EntitySet="CVs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Education_createdBy" Association="Self.fk_Education_createdBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Education" EntitySet="Educations" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Education_modifiedBy" Association="Self.fk_Education_modifiedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Education" EntitySet="Educations" />
           </AssociationSet>
           <AssociationSet Name="fk_LanguageCompetence_createdBy" Association="Self.fk_LanguageCompetence_createdBy">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -1736,6 +1894,14 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="TargetCompany" EntitySet="TargetCompanies" />
           </AssociationSet>
+          <AssociationSet Name="fk_WorkExperience_createdBy" Association="Self.fk_WorkExperience_createdBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="WorkExperience" EntitySet="WorkExperiences" />
+          </AssociationSet>
+          <AssociationSet Name="fk_WorkExperience_modifiedBy" Association="Self.fk_WorkExperience_modifiedBy">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="WorkExperience" EntitySet="WorkExperiences" />
+          </AssociationSet>
           <AssociationSet Name="fk_Contacts_Salutation" Association="Self.fk_Contacts_Salutation">
             <End Role="Salutations" EntitySet="Salutations" />
             <End Role="Contacts" EntitySet="Contacts" />
@@ -1756,110 +1922,7 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <EntitySet Name="Educations" EntityType="ApplyModel.Education" />
-          <AssociationSet Name="fk_Education_createdBy" Association="ApplyModel.fk_Education_createdBy">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="Education" EntitySet="Educations" />
-          </AssociationSet>
-          <AssociationSet Name="fk_Education_modifiedBy" Association="ApplyModel.fk_Education_modifiedBy">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="Education" EntitySet="Educations" />
-          </AssociationSet>
-          <EntitySet Name="WorkExperiences" EntityType="ApplyModel.WorkExperience" />
-          <AssociationSet Name="fk_WorkExperience_createdBy" Association="ApplyModel.fk_WorkExperience_createdBy">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="WorkExperience" EntitySet="WorkExperiences" />
-          </AssociationSet>
-          <AssociationSet Name="fk_WorkExperience_modifiedBy" Association="ApplyModel.fk_WorkExperience_modifiedBy">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="WorkExperience" EntitySet="WorkExperiences" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Education">
-          <Key>
-            <PropertyRef Name="EducationId" />
-          </Key>
-          <Property Name="EducationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MonthStart" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MonthEnd" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="YearStart" Type="Int32" Nullable="false" />
-          <Property Name="YearEnd" Type="Int32" Nullable="false" />
-          <Property Name="InstitutionName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedById" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="ModifiedById" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="AspNetUser" Relationship="ApplyModel.fk_Education_createdBy" FromRole="Education" ToRole="AspNetUser" />
-          <NavigationProperty Name="AspNetUser1" Relationship="ApplyModel.fk_Education_modifiedBy" FromRole="Education" ToRole="AspNetUser" />
-        </EntityType>
-        <Association Name="fk_Education_createdBy">
-          <End Type="ApplyModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
-          <End Type="ApplyModel.Education" Role="Education" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Education">
-              <PropertyRef Name="CreatedById" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_Education_modifiedBy">
-          <End Type="ApplyModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
-          <End Type="ApplyModel.Education" Role="Education" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Education">
-              <PropertyRef Name="ModifiedById" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="WorkExperience">
-          <Key>
-            <PropertyRef Name="WorkExperienceId" />
-          </Key>
-          <Property Name="WorkExperienceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CreatedById" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="ModifiedById" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="MonthStart" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MonthEnd" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="YearStart" Type="Int32" Nullable="false" />
-          <Property Name="YearEnd" Type="Int32" Nullable="false" />
-          <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="PositionHeld" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="ApplyModel.fk_WorkExperience_createdBy" FromRole="WorkExperience" ToRole="AspNetUser" />
-          <NavigationProperty Name="AspNetUser1" Relationship="ApplyModel.fk_WorkExperience_modifiedBy" FromRole="WorkExperience" ToRole="AspNetUser" />
-        </EntityType>
-        <Association Name="fk_WorkExperience_createdBy">
-          <End Type="ApplyModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
-          <End Type="ApplyModel.WorkExperience" Role="WorkExperience" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="WorkExperience">
-              <PropertyRef Name="CreatedById" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_WorkExperience_modifiedBy">
-          <End Type="ApplyModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
-          <End Type="ApplyModel.WorkExperience" Role="WorkExperience" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="WorkExperience">
-              <PropertyRef Name="ModifiedById" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1956,6 +2019,8 @@
             <EntityTypeMapping TypeName="ApplyModel.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Forename" ColumnName="Forename" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
                 <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
@@ -1967,8 +2032,20 @@
                 <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
                 <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Forename" ColumnName="Forename" />
-                <ScalarProperty Name="Surname" ColumnName="Surname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="ApplyModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1989,6 +2066,23 @@
             <EntityTypeMapping TypeName="ApplyModel.CV">
               <MappingFragment StoreEntitySet="CV">
                 <ScalarProperty Name="CVId" ColumnName="CVId" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="ModifiedById" ColumnName="ModifiedById" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Educations">
+            <EntityTypeMapping TypeName="ApplyModel.Education">
+              <MappingFragment StoreEntitySet="Education">
+                <ScalarProperty Name="EducationId" ColumnName="EducationId" />
+                <ScalarProperty Name="MonthStart" ColumnName="MonthStart" />
+                <ScalarProperty Name="MonthEnd" ColumnName="MonthEnd" />
+                <ScalarProperty Name="YearStart" ColumnName="YearStart" />
+                <ScalarProperty Name="YearEnd" ColumnName="YearEnd" />
+                <ScalarProperty Name="InstitutionName" ColumnName="InstitutionName" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
                 <ScalarProperty Name="ModifiedById" ColumnName="ModifiedById" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
@@ -2074,6 +2168,24 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="WorkExperiences">
+            <EntityTypeMapping TypeName="ApplyModel.WorkExperience">
+              <MappingFragment StoreEntitySet="WorkExperience">
+                <ScalarProperty Name="WorkExperienceId" ColumnName="WorkExperienceId" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="ModifiedById" ColumnName="ModifiedById" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="MonthStart" ColumnName="MonthStart" />
+                <ScalarProperty Name="MonthEnd" ColumnName="MonthEnd" />
+                <ScalarProperty Name="YearStart" ColumnName="YearStart" />
+                <ScalarProperty Name="YearEnd" ColumnName="YearEnd" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="PositionHeld" ColumnName="PositionHeld" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <AssociationSetMapping Name="AspNetUserRoles" TypeName="ApplyModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
             <EndProperty Name="AspNetRoles">
               <ScalarProperty Name="Id" ColumnName="RoleId" />
@@ -2082,41 +2194,6 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="Educations">
-            <EntityTypeMapping TypeName="ApplyModel.Education">
-              <MappingFragment StoreEntitySet="Education">
-                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="ModifiedById" ColumnName="ModifiedById" />
-                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="InstitutionName" ColumnName="InstitutionName" />
-                <ScalarProperty Name="YearEnd" ColumnName="YearEnd" />
-                <ScalarProperty Name="YearStart" ColumnName="YearStart" />
-                <ScalarProperty Name="MonthEnd" ColumnName="MonthEnd" />
-                <ScalarProperty Name="MonthStart" ColumnName="MonthStart" />
-                <ScalarProperty Name="EducationId" ColumnName="EducationId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="WorkExperiences">
-            <EntityTypeMapping TypeName="ApplyModel.WorkExperience">
-              <MappingFragment StoreEntitySet="WorkExperience">
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="PositionHeld" ColumnName="PositionHeld" />
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
-                <ScalarProperty Name="YearEnd" ColumnName="YearEnd" />
-                <ScalarProperty Name="YearStart" ColumnName="YearStart" />
-                <ScalarProperty Name="MonthEnd" ColumnName="MonthEnd" />
-                <ScalarProperty Name="MonthStart" ColumnName="MonthStart" />
-                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="ModifiedById" ColumnName="ModifiedById" />
-                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
-                <ScalarProperty Name="WorkExperienceId" ColumnName="WorkExperienceId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -2134,7 +2211,7 @@
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Kein" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

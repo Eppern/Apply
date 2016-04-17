@@ -82,6 +82,21 @@ namespace Apply.Models
         [Display(Name = "Kennwort bestätigen")]
         [Compare("Password", ErrorMessage = "Das Kennwort entspricht nicht dem Bestätigungskennwort.")]
         public string ConfirmPassword { get; set; }
+
+        public bool IsCompany { get; set; }
+
+        [Display(Name = "Firme Name")]
+        public string CompanyName { get; set; }
+
+        [Display(Name = "Ansprech Partner")]
+        public string ContactName { get; set; }
+
+        [DataType(DataType.Url)]
+        public string Website { get; set; }
+
+        [Display(Name = "Anrufnummer")]
+        [DataType(DataType.PhoneNumber)]
+        public string Telephone { get; set; }
     }
 
     public class ResetPasswordViewModel

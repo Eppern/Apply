@@ -108,7 +108,8 @@ namespace Apply.Helpers {
             SuperAdmin = 1,
             Admin = 1 << 1,
             User = 1 << 2,
-            InvitedCompany = 1 << 3
+            Company = 1 << 3,
+            InvitedCompany = 1 << 4
         };
 
         public static List<string> Month()

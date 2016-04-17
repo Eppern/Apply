@@ -33,15 +33,16 @@ namespace Apply.Models
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<Contact> Contacts { get; set; }
         public virtual DbSet<CV> CVs { get; set; }
+        public virtual DbSet<Education> Educations { get; set; }
         public virtual DbSet<LanguageCompetence> LanguageCompetences { get; set; }
         public virtual DbSet<LanguageCompetenceLevel> LanguageCompetenceLevels { get; set; }
         public virtual DbSet<Salutation> Salutations { get; set; }
         public virtual DbSet<Skill> Skills { get; set; }
         public virtual DbSet<SkillLevel> SkillLevels { get; set; }
         public virtual DbSet<TargetCompany> TargetCompanies { get; set; }
-        public virtual DbSet<Education> Educations { get; set; }
         public virtual DbSet<WorkExperience> WorkExperiences { get; set; }
     }
 }
