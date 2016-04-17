@@ -20,25 +20,25 @@ namespace Apply.Models
             this.Applicant_Professions = new HashSet<Applicant_Professions>();
         }
     
-        public int ApplicantId { get; set; }
         public string ForeName { get; set; }
         public string SurName { get; set; }
         public Nullable<System.DateTime> DOB { get; set; }
         public string Title { get; set; }
-        public int AddressId { get; set; }
-        public int SalutationId { get; set; }
-        public int CVId { get; set; }
+        public Nullable<int> AddressId { get; set; }
+        public Nullable<int> SalutationId { get; set; }
+        public Nullable<int> CVId { get; set; }
         public string CreatedById { get; set; }
         public string ModifiedById { get; set; }
         public System.DateTime DateCreated { get; set; }
         public System.DateTime DateModified { get; set; }
+        public string ApplicantId { get; set; }
     
         public virtual Address Address { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Applicant_Professions> Applicant_Professions { get; set; }
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual CV CV { get; set; }
         public virtual AspNetUser AspNetUser1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Applicant_Professions> Applicant_Professions { get; set; }
         public virtual Salutation Salutation { get; set; }
     }
 }

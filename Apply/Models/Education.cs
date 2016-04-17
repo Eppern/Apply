@@ -15,8 +15,8 @@ namespace Apply.Models
     public partial class Education
     {
         public int EducationId { get; set; }
-        public string MonthStart { get; set; }
-        public string MonthEnd { get; set; }
+        public int MonthStart { get; set; }
+        public int MonthEnd { get; set; }
         public int YearStart { get; set; }
         public int YearEnd { get; set; }
         public string InstitutionName { get; set; }

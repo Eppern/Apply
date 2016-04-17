@@ -15,6 +15,7 @@ namespace Apply.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplyEntities db = new ApplyEntities();
 
         public ManageController()
         {
@@ -333,12 +334,14 @@ namespace Apply.Controllers
 
         public ActionResult Daten()
         {
+
             return View();
         }
 
         public ActionResult Education()
         {
-            return View();
+            Applicant applicant = db.Applicants.Find(User.Identity.GetUserId());
+            return View(applicant);
         }
 
         public ActionResult WorkEx()
