@@ -114,19 +114,6 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
-        <EntityType Name="Company">
-          <Key>
-            <PropertyRef Name="CompanyId" />
-          </Key>
-          <Property Name="CompanyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CompanyName" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="UserName" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="ContactName" Type="nvarchar" MaxLength="128" />
-          <Property Name="EmailAddress" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="Telephone" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="Website" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="AspNetUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
-        </EntityType>
         <EntityType Name="Contacts">
           <Key>
             <PropertyRef Name="ContactId" />
@@ -371,18 +358,6 @@
             </Principal>
             <Dependent Role="Applicant">
               <PropertyRef Name="SalutationId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Company_AspNetUser">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-          <End Role="Company" Type="Self.Company" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Company">
-              <PropertyRef Name="AspNetUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -764,7 +739,6 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contacts" EntityType="Self.Contacts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CV" EntityType="Self.CV" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Education" EntityType="Self.Education" Schema="dbo" store:Type="Tables" />
@@ -814,10 +788,6 @@
           <AssociationSet Name="fk_Applicant_Salutation" Association="Self.fk_Applicant_Salutation">
             <End Role="Salutations" EntitySet="Salutations" />
             <End Role="Applicant" EntitySet="Applicant" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Company_AspNetUser" Association="Self.FK_Company_AspNetUser">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Company" EntitySet="Company" />
           </AssociationSet>
           <AssociationSet Name="fk_Contacts_Address" Association="Self.fk_Contacts_Address">
             <End Role="Addresses" EntitySet="Addresses" />
@@ -1070,7 +1040,6 @@
           <NavigationProperty Name="Applicant_Professions1" Relationship="Self.fk_Applicant_Professions_modifiedBy" FromRole="AspNetUsers" ToRole="Applicant_Professions" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
-          <NavigationProperty Name="Companies" Relationship="Self.FK_Company_AspNetUser" FromRole="AspNetUsers" ToRole="Company" />
           <NavigationProperty Name="Contacts" Relationship="Self.fk_Contacts_createdBy" FromRole="AspNetUsers" ToRole="Contacts" />
           <NavigationProperty Name="Contacts1" Relationship="Self.fk_Contacts_modifiedBy" FromRole="AspNetUsers" ToRole="Contacts" />
           <NavigationProperty Name="CVs" Relationship="Self.fk_cv_createdBy" FromRole="AspNetUsers" ToRole="CV" />
@@ -1092,20 +1061,6 @@
           <NavigationProperty Name="WorkExperiences" Relationship="Self.fk_WorkExperience_createdBy" FromRole="AspNetUsers" ToRole="WorkExperience" />
           <NavigationProperty Name="WorkExperiences1" Relationship="Self.fk_WorkExperience_modifiedBy" FromRole="AspNetUsers" ToRole="WorkExperience" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
-        </EntityType>
-        <EntityType Name="Company">
-          <Key>
-            <PropertyRef Name="CompanyId" />
-          </Key>
-          <Property Name="CompanyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CompanyName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ContactName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="EmailAddress" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Telephone" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Website" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="AspNetUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Company_AspNetUser" FromRole="Company" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="Contact">
           <Key>
@@ -1438,18 +1393,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Company_AspNetUser">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
-          <End Role="Company" Type="Self.Company" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Company">
-              <PropertyRef Name="AspNetUserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_Contacts_createdBy">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
           <End Role="Contacts" Type="Self.Contact" Multiplicity="*" />
@@ -1751,7 +1694,6 @@
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
-          <EntitySet Name="Companies" EntityType="Self.Company" />
           <EntitySet Name="Contacts" EntityType="Self.Contact" />
           <EntitySet Name="CVs" EntityType="Self.CV" />
           <EntitySet Name="Educations" EntityType="Self.Education" />
@@ -1817,10 +1759,6 @@
           <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Company_AspNetUser" Association="Self.FK_Company_AspNetUser">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Company" EntitySet="Companies" />
           </AssociationSet>
           <AssociationSet Name="fk_Contacts_createdBy" Association="Self.fk_Contacts_createdBy">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -2032,20 +1970,6 @@
                 <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
                 <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Companies">
-            <EntityTypeMapping TypeName="ApplyModel.Company">
-              <MappingFragment StoreEntitySet="Company">
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
-                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
-                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
-                <ScalarProperty Name="Website" ColumnName="Website" />
-                <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
