@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using Apply.Models;
 using Apply.Helpers;
+using Microsoft.AspNet.Identity;
 
 namespace Apply.Controllers
 {
@@ -41,33 +40,36 @@ namespace Apply.Controllers
         // GET: WorkExperiences/Create
         public ActionResult Create()
         {
-            ViewBag.Month = UserHelpers.Month();
-            ViewBag.Year = UserHelpers.Year();
-            ViewBag.CreatedById = new SelectList(db.AspNetUsers, "Id", "Email");
-            ViewBag.ModifiedById = new SelectList(db.AspNetUsers, "Id", "Email");
+            ViewBag.Month = UserHelpers.GetMonths();
+            ViewBag.Year = UserHelpers.GetYears();
             return View();
         }
 
         // POST: WorkExperiences/Create
-        // Aktivieren Sie zum Schutz vor übermäßigem Senden von Angriffen die spezifischen Eigenschaften, mit denen eine Bindung erfolgen soll. Weitere Informationen 
-        // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "WorkExperienceId,CreatedById,ModifiedById,DateCreated,DateModified,MonthStart,MonthEnd,YearStart,YearEnd,CompanyName,PositionHeld,Notes")] WorkExperience workExperience)
+        public ActionResult Create([Bind(Include = "MonthStart,MonthEnd,YearStart,YearEnd,CompanyName,PositionHeld,Notes")] WorkExperience workExperience)
         {
             if (ModelState.IsValid)
             {
-                workExperience.CreatedById = (db.AspNetUsers.Where(u => u.UserName == User.Identity.Name).Select(u => u.Id).FirstOrDefault());
+                workExperience.CreatedById = User.Identity.GetUserId();
                 workExperience.ModifiedById = workExperience.CreatedById;
                 workExperience.DateCreated = DateTime.Now;
                 workExperience.DateModified = workExperience.DateCreated;
-                db.WorkExperiences.Add(workExperience);
-                db.SaveChanges();
+                try
+                {
+                    db.WorkExperiences.Add(workExperience);
+                    db.SaveChanges();
+                }
+                catch (DbUpdateException ex) {
+                    var errorHelper = new ControllerHelpers();
+                    return errorHelper.CreateErrorPage(ex.InnerException.InnerException.Message, "WorkExperiences", "Create");
+                }
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CreatedById = new SelectList(db.AspNetUsers, "Id", "Email", workExperience.CreatedById);
-            ViewBag.ModifiedById = new SelectList(db.AspNetUsers, "Id", "Email", workExperience.ModifiedById);
+            ViewBag.Month = UserHelpers.GetMonths();
+            ViewBag.Year = UserHelpers.GetYears();
             return View(workExperience);
         }
 
@@ -83,32 +85,33 @@ namespace Apply.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Month = UserHelpers.Month();
-            ViewBag.Year = UserHelpers.Year();
-            ViewBag.CreatedById = new SelectList(db.AspNetUsers, "Id", "Email", workExperience.CreatedById);
-            ViewBag.ModifiedById = new SelectList(db.AspNetUsers, "Id", "Email", workExperience.ModifiedById);
+            ViewBag.Month = UserHelpers.GetMonths();
+            ViewBag.Year = UserHelpers.GetYears();
             return View(workExperience);
         }
 
         // POST: WorkExperiences/Edit/5
-        // Aktivieren Sie zum Schutz vor übermäßigem Senden von Angriffen die spezifischen Eigenschaften, mit denen eine Bindung erfolgen soll. Weitere Informationen 
-        // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "WorkExperienceId,CreatedById,ModifiedById,DateCreated,DateModified,MonthStart,MonthEnd,YearStart,YearEnd,CompanyName,PositionHeld,Notes")] WorkExperience workExperience)
+        public ActionResult Edit([Bind(Include = "WorkExperienceId,MonthStart,MonthEnd,YearStart,YearEnd,CompanyName,PositionHeld,Notes")] WorkExperience workExperience)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(workExperience).State = EntityState.Modified;
                 db.Entry(workExperience).Property(x => x.CreatedById).IsModified = false;
                 db.Entry(workExperience).Property(x => x.DateCreated).IsModified = false;
-                workExperience.ModifiedById = (db.AspNetUsers.Where(u => u.UserName == User.Identity.Name).Select(u => u.Id).FirstOrDefault());
+                workExperience.ModifiedById = User.Identity.GetUserId();
                 workExperience.DateModified = DateTime.Now;
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbUpdateException ex) {
+                    var errorHelper = new ControllerHelpers();
+                    return errorHelper.CreateErrorPage(ex.InnerException.InnerException.Message, "WorkExperiences", "Edit", new {id = workExperience.WorkExperienceId});
+                }
                 return RedirectToAction("Index");
             }
-            ViewBag.CreatedById = new SelectList(db.AspNetUsers, "Id", "Email", workExperience.CreatedById);
-            ViewBag.ModifiedById = new SelectList(db.AspNetUsers, "Id", "Email", workExperience.ModifiedById);
             return View(workExperience);
         }
 
@@ -133,8 +136,15 @@ namespace Apply.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             WorkExperience workExperience = db.WorkExperiences.Find(id);
-            db.WorkExperiences.Remove(workExperience);
-            db.SaveChanges();
+            try
+            {
+                db.WorkExperiences.Remove(workExperience);
+                db.SaveChanges();
+            }
+            catch (DbUpdateException ex) {
+                var errorHelper = new ControllerHelpers();
+                return errorHelper.CreateErrorPage(ex.InnerException.InnerException.Message, "WorkExperiences", "Delete", new { id = workExperience.WorkExperienceId });
+            }
             return RedirectToAction("Index");
         }
 

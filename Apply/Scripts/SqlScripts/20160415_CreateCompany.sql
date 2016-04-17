@@ -1,4 +1,8 @@
-﻿Create Table Company (
+﻿/**
+* Create Company Table
+*/
+
+Create Table Company (
 	CompanyId int Primary Key Identity(1,1),
 	CompanyName nvarchar(128) not null,
 	UserName nvarchar(128) not null,

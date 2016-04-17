@@ -1,72 +1,59 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
+using Apply.Helpers;
 using Apply.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Apply.Controllers
 {
     public class LanguageCompetencesController : Controller
     {
-        private ApplyEntities db = new ApplyEntities();
+        private readonly ApplyEntities db = new ApplyEntities();
 
         // GET: LanguageCompetences
         public ActionResult Index()
         {
-            var languageCompetences = db.LanguageCompetences.Include(l => l.AspNetUser).Include(l => l.AspNetUser1).Include(l => l.LanguageCompetenceLevel);
-            ViewBag.currentUser = db.AspNetUsers.Where(u => u.UserName == User.Identity.Name).Select(u => u.Id).FirstOrDefault();
+            var userId = User.Identity.GetUserId();
+            var languageCompetences = db.LanguageCompetences.Where(l => l.CreatedById == userId);
             return View(languageCompetences.ToList());
-        }
-
-        // GET: LanguageCompetences/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            LanguageCompetence languageCompetence = db.LanguageCompetences.Find(id);
-            if (languageCompetence == null)
-            {
-                return HttpNotFound();
-            }
-            return View(languageCompetence);
         }
 
         // GET: LanguageCompetences/Create
         public ActionResult Create()
         {
-            ViewBag.CreatedById = new SelectList(db.AspNetUsers, "Id", "Email");
-            ViewBag.ModifiedById = new SelectList(db.AspNetUsers, "Id", "Email");
-            ViewBag.LanguageCompetenceLevelId = new SelectList(db.LanguageCompetenceLevels, "LanguageCompetenceLevelId", "LevelName");
+            ViewBag.LanguageCompetencesLevels = db.LanguageCompetenceLevels.ToList();
             return View();
         }
 
         // POST: LanguageCompetences/Create
-        // Aktivieren Sie zum Schutz vor übermäßigem Senden von Angriffen die spezifischen Eigenschaften, mit denen eine Bindung erfolgen soll. Weitere Informationen 
-        // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "LanguageCompetenceId,LanguageName,CreatedById,ModifiedById,DateCreated,DateModified,LanguageCompetenceLevelId")] LanguageCompetence languageCompetence)
+        public ActionResult Create([Bind(Include = "LanguageName,LanguageCompetenceLevelId")] LanguageCompetence languageCompetence)
         {
             if (ModelState.IsValid)
             {
-                languageCompetence.CreatedById = (db.AspNetUsers.Where(u => u.UserName == User.Identity.Name).Select(u => u.Id).FirstOrDefault());
+                languageCompetence.CreatedById = User.Identity.GetUserId();
                 languageCompetence.ModifiedById = languageCompetence.CreatedById;
                 languageCompetence.DateCreated = DateTime.Now;
                 languageCompetence.DateModified = languageCompetence.DateCreated;
-                db.LanguageCompetences.Add(languageCompetence);
-                db.SaveChanges();
+                try
+                {
+                    db.LanguageCompetences.Add(languageCompetence);
+                    db.SaveChanges();
+                }
+                catch (DbUpdateException ex) {
+                    var errorHelper = new ControllerHelpers();
+                    return errorHelper.CreateErrorPage(ex.InnerException.InnerException.Message, "LanguageCompetences", "Create");
+                }
                 return RedirectToAction("Index");
             }
-
-            ViewBag.CreatedById = new SelectList(db.AspNetUsers, "Id", "Email", languageCompetence.CreatedById);
-            ViewBag.ModifiedById = new SelectList(db.AspNetUsers, "Id", "Email", languageCompetence.ModifiedById);
-            ViewBag.LanguageCompetenceLevelId = new SelectList(db.LanguageCompetenceLevels, "LanguageCompetenceLevelId", "LevelName", languageCompetence.LanguageCompetenceLevelId);
+            ViewBag.LanguageCompetencesLevels = db.LanguageCompetenceLevels.ToList();
             return View(languageCompetence);
         }
 
@@ -82,15 +69,11 @@ namespace Apply.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CreatedById = new SelectList(db.AspNetUsers, "Id", "Email", languageCompetence.CreatedById);
-            ViewBag.ModifiedById = new SelectList(db.AspNetUsers, "Id", "Email", languageCompetence.ModifiedById);
-            ViewBag.LanguageCompetenceLevelId = new SelectList(db.LanguageCompetenceLevels, "LanguageCompetenceLevelId", "LevelName", languageCompetence.LanguageCompetenceLevelId);
+            ViewBag.LanguageCompetencesLevels = db.LanguageCompetenceLevels.ToList();
             return View(languageCompetence);
         }
 
         // POST: LanguageCompetences/Edit/5
-        // Aktivieren Sie zum Schutz vor übermäßigem Senden von Angriffen die spezifischen Eigenschaften, mit denen eine Bindung erfolgen soll. Weitere Informationen 
-        // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "LanguageCompetenceId,LanguageName,LanguageCompetenceLevelId")] LanguageCompetence languageCompetence)
@@ -100,14 +83,19 @@ namespace Apply.Controllers
                 db.Entry(languageCompetence).State = EntityState.Modified;
                 db.Entry(languageCompetence).Property(x => x.CreatedById).IsModified = false;
                 db.Entry(languageCompetence).Property(x => x.DateCreated).IsModified = false;
-                languageCompetence.ModifiedById = (db.AspNetUsers.Where(u => u.UserName == User.Identity.Name).Select(u => u.Id).FirstOrDefault());
+                languageCompetence.ModifiedById = User.Identity.GetUserId();
                 languageCompetence.DateModified = DateTime.Now;
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbUpdateException ex) {
+                    var errorHelper = new ControllerHelpers();
+                    return errorHelper.CreateErrorPage(ex.InnerException.InnerException.Message, "Educations", "Edit", new {id = languageCompetence.LanguageCompetenceId});
+                }
                 return RedirectToAction("Index");
             }
-            ViewBag.CreatedById = new SelectList(db.AspNetUsers, "Id", "Email", languageCompetence.CreatedById);
-            ViewBag.ModifiedById = new SelectList(db.AspNetUsers, "Id", "Email", languageCompetence.ModifiedById);
-            ViewBag.LanguageCompetenceLevelId = new SelectList(db.LanguageCompetenceLevels, "LanguageCompetenceLevelId", "LevelName", languageCompetence.LanguageCompetenceLevelId);
+            ViewBag.LanguageCompetencesLevels = new SelectList(db.LanguageCompetenceLevels, "LanguageCompetenceLevelId", "LevelName", languageCompetence.LanguageCompetenceLevelId);
             return View(languageCompetence);
         }
 
@@ -118,7 +106,7 @@ namespace Apply.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            LanguageCompetence languageCompetence = db.LanguageCompetences.Find(id);
+            var languageCompetence = db.LanguageCompetences.Find(id);
             if (languageCompetence == null)
             {
                 return HttpNotFound();
@@ -132,8 +120,15 @@ namespace Apply.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             LanguageCompetence languageCompetence = db.LanguageCompetences.Find(id);
-            db.LanguageCompetences.Remove(languageCompetence);
-            db.SaveChanges();
+            try
+            {
+                db.LanguageCompetences.Remove(languageCompetence);
+                db.SaveChanges();
+            }
+            catch (DbUpdateException ex) {
+                var errorHelper = new ControllerHelpers();
+                return errorHelper.CreateErrorPage(ex.InnerException.InnerException.Message, "Educations", "Create", new { id = id });
+            }
             return RedirectToAction("Index");
         }
 

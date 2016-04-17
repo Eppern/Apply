@@ -1,4 +1,9 @@
-﻿CREATE TABLE CV (
+﻿/**
+* Creates all tables. Run this only after executing the program and registering a user. 
+* This ensures creation of the Asp.Net Identity Tables.
+*/
+
+CREATE TABLE CV (
 	CVId int Primary Key Identity (1,1) not null,
 
 	CreatedById nvarchar(128) not null,

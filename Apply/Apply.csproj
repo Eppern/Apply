@@ -184,6 +184,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ControllerHelpers.cs" />
     <Compile Include="Helpers\UserHelpers.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Address.cs">
@@ -222,9 +223,13 @@
     <Compile Include="Models\AspNetUserLogin.cs">
       <DependentUpon>ApplyModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Company.cs">
+      <DependentUpon>ApplyModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Contact.cs">
       <DependentUpon>ApplyModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CustomDataAnnotations.cs" />
     <Compile Include="Models\CV.cs">
       <DependentUpon>ApplyModel.tt</DependentUpon>
     </Compile>
@@ -321,8 +326,12 @@
     <Content Include="Scripts\script.js" />
     <Content Include="Scripts\SqlScripts\20160415_AmmendApplicantPK.sql" />
     <Content Include="Scripts\SqlScripts\20160415_CreateCompany.sql" />
-    <Content Include="Scripts\SqlScripts\createTables.sql" />
-    <Content Include="Scripts\SqlScripts\identity.sql" />
+    <Content Include="Scripts\SqlScripts\20160417_AddUniques.sql" />
+    <Content Include="Scripts\SqlScripts\20160417_ChangeMonthDataTypes.sql" />
+    <Content Include="Scripts\SqlScripts\20160417_LanguageLevelSeed.sql" />
+    <Content Include="Scripts\SqlScripts\20160417_SkillLevelSeed.sql" />
+    <Content Include="Scripts\SqlScripts\20160301_CreateTables.sql" />
+    <Content Include="Scripts\SqlScripts\20160302_ExtendAspNetUser.sql" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -383,7 +392,6 @@
     <Content Include="Views\Skills\Index.cshtml" />
     <Content Include="Views\LanguageCompetences\Create.cshtml" />
     <Content Include="Views\LanguageCompetences\Delete.cshtml" />
-    <Content Include="Views\LanguageCompetences\Details.cshtml" />
     <Content Include="Views\LanguageCompetences\Edit.cshtml" />
     <Content Include="Views\LanguageCompetences\Index.cshtml" />
     <Content Include="Views\Educations\Create.cshtml" />

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ApplyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Apply.Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -36,7 +36,7 @@
           <Key>
             <PropertyRef Name="ApplicantId" />
           </Key>
-          <Property Name="ApplicantId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApplicantId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="ForeName" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="SurName" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="DOB" Type="date" />
@@ -54,7 +54,7 @@
             <PropertyRef Name="Applicant_ProfessionsId" />
           </Key>
           <Property Name="Applicant_ProfessionsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ApplicantId" Type="int" Nullable="false" />
+          <Property Name="ApplicantId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Profession" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="CreatedById" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="ModifiedById" Type="nvarchar" MaxLength="128" Nullable="false" />
@@ -114,6 +114,19 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ContactName" Type="nvarchar" MaxLength="128" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Telephone" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Website" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="AspNetUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
         <EntityType Name="Contacts">
           <Key>
             <PropertyRef Name="ContactId" />
@@ -141,8 +154,8 @@
             <PropertyRef Name="EducationId" />
           </Key>
           <Property Name="EducationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MonthStart" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="MonthEnd" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MonthStart" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="MonthEnd" Type="nvarchar" MaxLength="5" Nullable="false" />
           <Property Name="YearStart" Type="int" Nullable="false" />
           <Property Name="YearEnd" Type="int" Nullable="false" />
           <Property Name="InstitutionName" Type="nvarchar" MaxLength="256" Nullable="false" />
@@ -233,8 +246,8 @@
           <Property Name="ModifiedById" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
           <Property Name="DateModified" Type="datetime" Nullable="false" />
-          <Property Name="MonthStart" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="MonthEnd" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MonthStart" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="MonthEnd" Type="nvarchar" MaxLength="5" Nullable="false" />
           <Property Name="YearStart" Type="int" Nullable="false" />
           <Property Name="YearEnd" Type="int" Nullable="false" />
           <Property Name="CompanyName" Type="nvarchar" MaxLength="256" Nullable="false" />
@@ -358,6 +371,18 @@
             </Principal>
             <Dependent Role="Applicant">
               <PropertyRef Name="SalutationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Company_AspNetUser">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Company" Type="Self.Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="AspNetUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -729,7 +754,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ApplyModelStoreContainer">
+        <EntityContainer Name="ApplyModelsStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Addresses" EntityType="Self.Addresses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Applicant" EntityType="Self.Applicant" Schema="dbo" store:Type="Tables" />
@@ -739,6 +764,7 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contacts" EntityType="Self.Contacts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CV" EntityType="Self.CV" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Education" EntityType="Self.Education" Schema="dbo" store:Type="Tables" />
@@ -788,6 +814,10 @@
           <AssociationSet Name="fk_Applicant_Salutation" Association="Self.fk_Applicant_Salutation">
             <End Role="Salutations" EntitySet="Salutations" />
             <End Role="Applicant" EntitySet="Applicant" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Company_AspNetUser" Association="Self.FK_Company_AspNetUser">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Company" EntitySet="Company" />
           </AssociationSet>
           <AssociationSet Name="fk_Contacts_Address" Association="Self.fk_Contacts_Address">
             <End Role="Addresses" EntitySet="Addresses" />
@@ -914,7 +944,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="ApplyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="Apply.Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="C__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -951,7 +981,7 @@
           <Key>
             <PropertyRef Name="ApplicantId" />
           </Key>
-          <Property Name="ApplicantId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplicantId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ForeName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SurName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DOB" Type="DateTime" Precision="0" />
@@ -975,7 +1005,7 @@
             <PropertyRef Name="Applicant_ProfessionsId" />
           </Key>
           <Property Name="Applicant_ProfessionsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ApplicantId" Type="Int32" Nullable="false" />
+          <Property Name="ApplicantId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Profession" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CreatedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ModifiedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
@@ -1040,6 +1070,7 @@
           <NavigationProperty Name="Applicant_Professions1" Relationship="Self.fk_Applicant_Professions_modifiedBy" FromRole="AspNetUsers" ToRole="Applicant_Professions" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="Companies" Relationship="Self.FK_Company_AspNetUser" FromRole="AspNetUsers" ToRole="Company" />
           <NavigationProperty Name="Contacts" Relationship="Self.fk_Contacts_createdBy" FromRole="AspNetUsers" ToRole="Contacts" />
           <NavigationProperty Name="Contacts1" Relationship="Self.fk_Contacts_modifiedBy" FromRole="AspNetUsers" ToRole="Contacts" />
           <NavigationProperty Name="CVs" Relationship="Self.fk_cv_createdBy" FromRole="AspNetUsers" ToRole="CV" />
@@ -1061,6 +1092,20 @@
           <NavigationProperty Name="WorkExperiences" Relationship="Self.fk_WorkExperience_createdBy" FromRole="AspNetUsers" ToRole="WorkExperience" />
           <NavigationProperty Name="WorkExperiences1" Relationship="Self.fk_WorkExperience_modifiedBy" FromRole="AspNetUsers" ToRole="WorkExperience" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContactName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="EmailAddress" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Telephone" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Website" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AspNetUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Company_AspNetUser" FromRole="Company" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="Contact">
           <Key>
@@ -1097,8 +1142,8 @@
             <PropertyRef Name="EducationId" />
           </Key>
           <Property Name="EducationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MonthStart" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MonthEnd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MonthStart" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MonthEnd" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="YearStart" Type="Int32" Nullable="false" />
           <Property Name="YearEnd" Type="Int32" Nullable="false" />
           <Property Name="InstitutionName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
@@ -1211,8 +1256,8 @@
           <Property Name="ModifiedById" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="MonthStart" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MonthEnd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MonthStart" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MonthEnd" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="YearStart" Type="Int32" Nullable="false" />
           <Property Name="YearEnd" Type="Int32" Nullable="false" />
           <Property Name="CompanyName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
@@ -1390,6 +1435,18 @@
             </Principal>
             <Dependent Role="AspNetUserLogins">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Company_AspNetUser">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="Company" Type="Self.Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="AspNetUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1694,6 +1751,7 @@
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <EntitySet Name="Companies" EntityType="Self.Company" />
           <EntitySet Name="Contacts" EntityType="Self.Contact" />
           <EntitySet Name="CVs" EntityType="Self.CV" />
           <EntitySet Name="Educations" EntityType="Self.Education" />
@@ -1759,6 +1817,10 @@
           <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Company_AspNetUser" Association="Self.FK_Company_AspNetUser">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Company" EntitySet="Companies" />
           </AssociationSet>
           <AssociationSet Name="fk_Contacts_createdBy" Association="Self.fk_Contacts_createdBy">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -1866,9 +1928,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ApplyModelStoreContainer" CdmEntityContainer="ApplyEntities">
+        <EntityContainerMapping StorageEntityContainer="ApplyModelsStoreContainer" CdmEntityContainer="ApplyEntities">
           <EntitySetMapping Name="C__MigrationHistory">
-            <EntityTypeMapping TypeName="ApplyModel.C__MigrationHistory">
+            <EntityTypeMapping TypeName="Apply.Models.C__MigrationHistory">
               <MappingFragment StoreEntitySet="__MigrationHistory">
                 <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
                 <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
@@ -1878,7 +1940,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Addresses">
-            <EntityTypeMapping TypeName="ApplyModel.Address">
+            <EntityTypeMapping TypeName="Apply.Models.Address">
               <MappingFragment StoreEntitySet="Addresses">
                 <ScalarProperty Name="AddressId" ColumnName="AddressId" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
@@ -1896,7 +1958,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Applicants">
-            <EntityTypeMapping TypeName="ApplyModel.Applicant">
+            <EntityTypeMapping TypeName="Apply.Models.Applicant">
               <MappingFragment StoreEntitySet="Applicant">
                 <ScalarProperty Name="ApplicantId" ColumnName="ApplicantId" />
                 <ScalarProperty Name="ForeName" ColumnName="ForeName" />
@@ -1914,7 +1976,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Applicant_Professions">
-            <EntityTypeMapping TypeName="ApplyModel.Applicant_Professions">
+            <EntityTypeMapping TypeName="Apply.Models.Applicant_Professions">
               <MappingFragment StoreEntitySet="Applicant_Professions">
                 <ScalarProperty Name="Applicant_ProfessionsId" ColumnName="Applicant_ProfessionsId" />
                 <ScalarProperty Name="ApplicantId" ColumnName="ApplicantId" />
@@ -1927,7 +1989,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetRoles">
-            <EntityTypeMapping TypeName="ApplyModel.AspNetRole">
+            <EntityTypeMapping TypeName="Apply.Models.AspNetRole">
               <MappingFragment StoreEntitySet="AspNetRoles">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1935,7 +1997,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserClaims">
-            <EntityTypeMapping TypeName="ApplyModel.AspNetUserClaim">
+            <EntityTypeMapping TypeName="Apply.Models.AspNetUserClaim">
               <MappingFragment StoreEntitySet="AspNetUserClaims">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -1945,7 +2007,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserLogins">
-            <EntityTypeMapping TypeName="ApplyModel.AspNetUserLogin">
+            <EntityTypeMapping TypeName="Apply.Models.AspNetUserLogin">
               <MappingFragment StoreEntitySet="AspNetUserLogins">
                 <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
                 <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
@@ -1954,7 +2016,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUsers">
-            <EntityTypeMapping TypeName="ApplyModel.AspNetUser">
+            <EntityTypeMapping TypeName="Apply.Models.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Surname" ColumnName="Surname" />
@@ -1973,8 +2035,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="Apply.Models.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Contacts">
-            <EntityTypeMapping TypeName="ApplyModel.Contact">
+            <EntityTypeMapping TypeName="Apply.Models.Contact">
               <MappingFragment StoreEntitySet="Contacts">
                 <ScalarProperty Name="ContactId" ColumnName="ContactId" />
                 <ScalarProperty Name="SalutationId" ColumnName="SalutationId" />
@@ -1987,7 +2063,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CVs">
-            <EntityTypeMapping TypeName="ApplyModel.CV">
+            <EntityTypeMapping TypeName="Apply.Models.CV">
               <MappingFragment StoreEntitySet="CV">
                 <ScalarProperty Name="CVId" ColumnName="CVId" />
                 <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
@@ -1998,7 +2074,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Educations">
-            <EntityTypeMapping TypeName="ApplyModel.Education">
+            <EntityTypeMapping TypeName="Apply.Models.Education">
               <MappingFragment StoreEntitySet="Education">
                 <ScalarProperty Name="EducationId" ColumnName="EducationId" />
                 <ScalarProperty Name="MonthStart" ColumnName="MonthStart" />
@@ -2015,7 +2091,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LanguageCompetences">
-            <EntityTypeMapping TypeName="ApplyModel.LanguageCompetence">
+            <EntityTypeMapping TypeName="Apply.Models.LanguageCompetence">
               <MappingFragment StoreEntitySet="LanguageCompetence">
                 <ScalarProperty Name="LanguageCompetenceId" ColumnName="LanguageCompetenceId" />
                 <ScalarProperty Name="LanguageName" ColumnName="LanguageName" />
@@ -2028,7 +2104,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LanguageCompetenceLevels">
-            <EntityTypeMapping TypeName="ApplyModel.LanguageCompetenceLevel">
+            <EntityTypeMapping TypeName="Apply.Models.LanguageCompetenceLevel">
               <MappingFragment StoreEntitySet="LanguageCompetenceLevel">
                 <ScalarProperty Name="LanguageCompetenceLevelId" ColumnName="LanguageCompetenceLevelId" />
                 <ScalarProperty Name="LevelName" ColumnName="LevelName" />
@@ -2040,7 +2116,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Salutations">
-            <EntityTypeMapping TypeName="ApplyModel.Salutation">
+            <EntityTypeMapping TypeName="Apply.Models.Salutation">
               <MappingFragment StoreEntitySet="Salutations">
                 <ScalarProperty Name="SalutationId" ColumnName="SalutationId" />
                 <ScalarProperty Name="ShortName" ColumnName="ShortName" />
@@ -2053,7 +2129,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Skills">
-            <EntityTypeMapping TypeName="ApplyModel.Skill">
+            <EntityTypeMapping TypeName="Apply.Models.Skill">
               <MappingFragment StoreEntitySet="Skill">
                 <ScalarProperty Name="SkillId" ColumnName="SkillId" />
                 <ScalarProperty Name="SkillName" ColumnName="SkillName" />
@@ -2066,7 +2142,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SkillLevels">
-            <EntityTypeMapping TypeName="ApplyModel.SkillLevel">
+            <EntityTypeMapping TypeName="Apply.Models.SkillLevel">
               <MappingFragment StoreEntitySet="SkillLevel">
                 <ScalarProperty Name="SkillLevelId" ColumnName="SkillLevelId" />
                 <ScalarProperty Name="LevelName" ColumnName="LevelName" />
@@ -2078,7 +2154,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TargetCompanies">
-            <EntityTypeMapping TypeName="ApplyModel.TargetCompany">
+            <EntityTypeMapping TypeName="Apply.Models.TargetCompany">
               <MappingFragment StoreEntitySet="TargetCompany">
                 <ScalarProperty Name="TargetCompanyId" ColumnName="TargetCompanyId" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
@@ -2093,7 +2169,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="WorkExperiences">
-            <EntityTypeMapping TypeName="ApplyModel.WorkExperience">
+            <EntityTypeMapping TypeName="Apply.Models.WorkExperience">
               <MappingFragment StoreEntitySet="WorkExperience">
                 <ScalarProperty Name="WorkExperienceId" ColumnName="WorkExperienceId" />
                 <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
@@ -2110,7 +2186,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="AspNetUserRoles" TypeName="ApplyModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="Apply.Models.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
             <EndProperty Name="AspNetRoles">
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
@@ -2135,7 +2211,7 @@
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="Kein" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

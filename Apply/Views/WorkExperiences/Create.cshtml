@@ -33,7 +33,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Notes, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control" }, style = "margin: 0px;width: 281px;height: 283px;" })
+                @Html.TextAreaFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control" }, style = "margin: 0;width: 281px;height: 283px;" })
                 @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -41,7 +41,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.MonthStart, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("MonthStart", new SelectList(ViewBag.Month), htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.MonthStart, new SelectList(ViewBag.Month), htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.MonthStart, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -49,7 +49,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.YearStart, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("YearStart", new SelectList(ViewBag.Year), htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.YearStart, new SelectList(ViewBag.Year), htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.YearStart, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -57,7 +57,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.MonthEnd, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("MonthEnd", new SelectList(ViewBag.Month), htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.MonthEnd, new SelectList(ViewBag.Month), htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.MonthEnd, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -65,7 +65,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.YearEnd, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("YearEnd", new SelectList(ViewBag.Year), htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.YearEnd, new SelectList(ViewBag.Year), htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.YearEnd, "", new { @class = "text-danger" })
             </div>
         </div>

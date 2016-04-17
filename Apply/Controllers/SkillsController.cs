@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
+using Apply.Helpers;
 using Apply.Models;
 using Microsoft.AspNet.Identity;
 
@@ -13,13 +12,13 @@ namespace Apply.Controllers
 {
     public class SkillsController : Controller
     {
-        private ApplyEntities db = new ApplyEntities();
+        private readonly ApplyEntities db = new ApplyEntities();
 
         // GET: Skills
         public ActionResult Index()
         {
-            var skills = db.Skills.Include(s => s.AspNetUser).Include(s => s.AspNetUser1).Include(s => s.SkillLevel);
-            ViewBag.currentUser = db.AspNetUsers.Where(u => u.UserName == User.Identity.Name).Select(u => u.Id).FirstOrDefault();
+            var userId = User.Identity.GetUserId();
+            var skills = db.Skills.Where(s => s.CreatedById == userId);
             return View(skills.ToList());
         }
 
@@ -41,33 +40,34 @@ namespace Apply.Controllers
         // GET: Skills/Create
         public ActionResult Create()
         {
-            ViewBag.CreatedById = new SelectList(db.AspNetUsers, "Id", "Email");
-            ViewBag.ModifiedById = new SelectList(db.AspNetUsers, "Id", "Email");
-            ViewBag.SkillLevelId = new SelectList(db.SkillLevels, "SkillLevelId", "LevelName");
+            ViewBag.SkillLevels = db.SkillLevels.ToList();
             return View();
         }
 
         // POST: Skills/Create
-        // Aktivieren Sie zum Schutz vor übermäßigem Senden von Angriffen die spezifischen Eigenschaften, mit denen eine Bindung erfolgen soll. Weitere Informationen 
-        // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SkillId,SkillName,CreatedById,ModifiedById,DateCreated,DateModified,SkillLevelId")] Skill skill)
+        public ActionResult Create([Bind(Include = "SkillName,SkillLevelId")] Skill skill)
         {
             if (ModelState.IsValid)
             {
-                skill.CreatedById = (db.AspNetUsers.Where(u => u.UserName == User.Identity.Name).Select(u => u.Id).FirstOrDefault());
+                skill.CreatedById = User.Identity.GetUserId();
                 skill.ModifiedById = skill.CreatedById;
                 skill.DateCreated = DateTime.Now;
                 skill.DateModified = skill.DateCreated;
-                db.Skills.Add(skill);
-                db.SaveChanges();
+                try
+                {
+                    db.Skills.Add(skill);
+                    db.SaveChanges();
+                }
+                catch (DbUpdateException ex) {
+                    var errorHelper = new ControllerHelpers();
+                    return errorHelper.CreateErrorPage(ex.InnerException.InnerException.Message, "Skills", "Create");
+                }
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CreatedById = new SelectList(db.AspNetUsers, "Id", "Email", skill.CreatedById);
-            ViewBag.ModifiedById = new SelectList(db.AspNetUsers, "Id", "Email", skill.ModifiedById);
-            ViewBag.SkillLevelId = new SelectList(db.SkillLevels, "SkillLevelId", "LevelName", skill.SkillLevelId);
+            ViewBag.SkillLevels = db.SkillLevels.ToList();
             return View(skill);
         }
 
@@ -83,13 +83,11 @@ namespace Apply.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.SkillLevelId = new SelectList(db.SkillLevels, "SkillLevelId", "LevelName", skill.SkillLevelId);
+            ViewBag.SkillLevels = db.SkillLevels.ToList();
             return View(skill);
         }
 
         // POST: Skills/Edit/5
-        // Aktivieren Sie zum Schutz vor übermäßigem Senden von Angriffen die spezifischen Eigenschaften, mit denen eine Bindung erfolgen soll. Weitere Informationen 
-        // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "SkillId,SkillName,SkillLevelId")] Skill skill)
@@ -101,12 +99,17 @@ namespace Apply.Controllers
                 skill.ModifiedById = User.Identity.GetUserId();
                 db.Entry(skill).Property(x => x.CreatedById).IsModified = false;
                 db.Entry(skill).Property(x => x.DateCreated).IsModified = false;
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbUpdateException ex) {
+                    var errorHelper = new ControllerHelpers();
+                    return errorHelper.CreateErrorPage(ex.InnerException.InnerException.Message, "Skills", "Edit", new { id = skill.SkillId });
+                }
                 return RedirectToAction("Index");
             }
-            ViewBag.CreatedById = new SelectList(db.AspNetUsers, "Id", "Email", skill.CreatedById);
-            ViewBag.ModifiedById = new SelectList(db.AspNetUsers, "Id", "Email", skill.ModifiedById);
-            ViewBag.SkillLevelId = new SelectList(db.SkillLevels, "SkillLevelId", "LevelName", skill.SkillLevelId);
+            ViewBag.SkillLevels = db.SkillLevels.ToList();
             return View(skill);
         }
 
@@ -131,8 +134,15 @@ namespace Apply.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Skill skill = db.Skills.Find(id);
-            db.Skills.Remove(skill);
-            db.SaveChanges();
+            try
+            {
+                db.Skills.Remove(skill);
+                db.SaveChanges();
+            }
+            catch (DbUpdateException ex) {
+                var errorHelper = new ControllerHelpers();
+                return errorHelper.CreateErrorPage(ex.InnerException.InnerException.Message, "Skills", "Delete", new { id = id });
+            }
             return RedirectToAction("Index");
         }
 

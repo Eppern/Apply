@@ -1,4 +1,10 @@
-﻿GO
+﻿/**
+* Change the Applicant Primary Key to nvarchar(128) to mirror the AspNetUser Id.
+* Ensure SqlCmd mode is enabled
+*/
+
+
+GO
 SET ANSI_NULLS, ANSI_PADDING, ANSI_WARNINGS, ARITHABORT, CONCAT_NULL_YIELDS_NULL, QUOTED_IDENTIFIER ON;
 
 SET NUMERIC_ROUNDABORT OFF;

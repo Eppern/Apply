@@ -24,6 +24,8 @@ namespace Apply.Models
 
     public class WorkExperienceMetadata : BaseMetadata {
         [Display(Name = "Firmenname")]
+        [Required]
+        [StringLength(256)]
         public string CompanyName;
 
         [Display(Name = "Position")]
@@ -41,43 +43,49 @@ namespace Apply.Models
         [Display(Name = "Endmonat")]
         public string MonthEnd;
 
+        [YearGreaterOrEqualTo("YearStart", "Das Endjahr muss großer oder gleich als das Startjahr sein")]
         [Display(Name = "Endjahr")]
         public int YearEnd;
     }
 
     public class SkillMetadata : BaseMetadata {
         [Display(Name = "Fähigkeit")]
+        [Required]
         public string SkillName;
 
-        //[Display(Name = "Fähigkeitenstärke")]
-        //public int LevelName;
+        [Display(Name = "Fähigkeitenstärke")]
+        public int SkillLevelId;
     }
 
     public class LanguageCompetenceMetadata : BaseMetadata {
         [Display(Name = "Sprache")]
         public string LanguageName;
-
-        //[Display(Name = "Sprachenfähigkeit")]
-        //public string LevelName;
     }
 
     public class EducationMetadata : BaseMetadata {
         [Display(Name = "Institut")]
+        [Required]
+        [StringLength(256)]
         public string InstitutionName;
 
         [Display(Name = "Beschreibung")]
         public string Notes;
 
         [Display(Name = "Startmonat")]
+        [Required]
         public string MonthStart;
 
         [Display(Name = "Startjahr")]
+        [Required]
         public int YearStart;
 
         [Display(Name = "Endmonat")]
+        [Required]
         public string MonthEnd;
 
         [Display(Name = "Endjahr")]
+        [Required]
+        [YearGreaterOrEqualTo("YearStart", "Das Endjahr muss großer oder gleich als das Startjahr sein")]
         public int YearEnd;
     }
 
@@ -96,7 +104,7 @@ namespace Apply.Models
     public class ApplicantMetadata {
         [Display(Name = "Geburtsdatum")]
         [DataType(DataType.Date)]
-        public DateTime DOB;
+        public DateTime Dob;
 
         [Display(Name = "Titel")]
         public string Title;

@@ -1,4 +1,8 @@
-﻿alter table aspnetusers
+﻿/**
+* Script to extend the AspNetUser
+*/
+
+alter table aspnetusers
 add Forename nvarchar(128) null
 
 go

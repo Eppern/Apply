@@ -1,9 +1,16 @@
-﻿@model System.Web.Mvc.HandleErrorInfo
+﻿@model HandleErrorInfo
 
 @{
-    ViewBag.Title = "Error";
+    ViewBag.Title = "Fehler";
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+<h1 class="text-danger">Fehler</h1>
+<h2 class="text-danger">@Html.DisplayFor(m => m.Exception.Message)</h2>
+
+<hr />
+
+@{
+    object RouteValues = ViewBag.RouteValues;
+    @Html.ActionLink("Zurück", Model.ActionName, Model.ControllerName, RouteValues);
+}
 

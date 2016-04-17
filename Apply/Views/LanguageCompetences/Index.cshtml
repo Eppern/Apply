@@ -8,7 +8,7 @@
 <h2 style="margin-left: 105px;">Sprachen</h2>
 
 <div id="ProgressBar">
-    @foreach (var item in Model.Where(s => s.CreatedById == ViewBag.currentUser))
+    @foreach (var item in Model)
     {
         int _progress=0;
         switch (item.LanguageCompetenceLevelId)

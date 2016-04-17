@@ -12,11 +12,17 @@ namespace Apply.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class C__MigrationHistory
+    public partial class Company
     {
-        public string MigrationId { get; set; }
-        public string ContextKey { get; set; }
-        public byte[] Model { get; set; }
-        public string ProductVersion { get; set; }
+        public int CompanyId { get; set; }
+        public string CompanyName { get; set; }
+        public string UserName { get; set; }
+        public string ContactName { get; set; }
+        public string EmailAddress { get; set; }
+        public string Telephone { get; set; }
+        public string Website { get; set; }
+        public string AspNetUserId { get; set; }
+    
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

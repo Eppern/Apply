@@ -144,11 +144,11 @@ namespace Apply.Controllers
         }
 
         //
-        // POST: /Account/Register
+        // POST: /Account/RegisterGeek
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> RegisterGeek(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -156,22 +156,38 @@ namespace Apply.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    UserHelpers.CreateApplicantFromIdentity(user);
+                    UserHelpers.AddUserToRole(user, UserHelpers.Roles.User);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-
-                    // Weitere Informationen zum Aktivieren der Kontobestätigung und Kennwortzurücksetzung finden Sie unter "http://go.microsoft.com/fwlink/?LinkID=320771".
-                    // E-Mail-Nachricht mit diesem Link senden
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Konto bestätigen", "Bitte bestätigen Sie Ihr Konto. Klicken Sie dazu <a href=\"" + callbackUrl + "\">hier</a>");
-                    UserHelpers.CreateApplicantFromIdentity(user);                    
-
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
 
             // Wurde dieser Punkt erreicht, ist ein Fehler aufgetreten; Formular erneut anzeigen.
-            return View(model);
+            return View("Register", model);
+        }
+
+        //
+        // POST: /Account/RegisterCompany
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterCompany(RegisterViewModel model) {
+            if (ModelState.IsValid) {
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded) {
+                    UserHelpers.CreateCompanyFromIdentity(user, model);
+                    UserHelpers.AddUserToRole(user, UserHelpers.Roles.Company);
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    return RedirectToAction("Index", "Home");
+                }
+                AddErrors(result);
+            }
+
+            // Wurde dieser Punkt erreicht, ist ein Fehler aufgetreten; Formular erneut anzeigen.
+            return View("Register",model);
         }
 
         //

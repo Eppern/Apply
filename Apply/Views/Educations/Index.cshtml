@@ -8,7 +8,7 @@
 <h2 style="margin-left: 105px;">Schulische Ausbildung</h2>
 
 <section id="cd-timeline" class="cd-container">
-    @foreach (var item in Model.Where(s => s.CreatedById == ViewBag.currentUser))
+    @foreach (var item in Model)
     {
         <div class="cd-timeline-block">
             <div class="cd-timeline-img cd-picture">
