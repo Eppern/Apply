@@ -91,7 +91,7 @@ namespace Apply.Helpers {
                 var surname = info.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Surname);
                 if (surname != null)
                     user.Surname = surname.Value;
-                user.UserName = info.ExternalIdentity.GetUserName();
+                user.UserName = info.ExternalIdentity.GetUserName()?? user.UserName;
             }
 
             return user;

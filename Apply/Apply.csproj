@@ -328,10 +328,10 @@
     <Content Include="Scripts\SqlScripts\20160415_CreateCompany.sql" />
     <Content Include="Scripts\SqlScripts\20160417_AddUniques.sql" />
     <Content Include="Scripts\SqlScripts\20160417_ChangeMonthDataTypes.sql" />
+    <Content Include="Scripts\SqlScripts\20160417_ChangeMonthDataTypes2.sql" />
     <Content Include="Scripts\SqlScripts\20160417_LanguageLevelSeed.sql" />
     <Content Include="Scripts\SqlScripts\20160417_SkillLevelSeed.sql" />
     <Content Include="Scripts\SqlScripts\20160301_CreateTables.sql" />
-    <Content Include="Scripts\SqlScripts\20160302_ExtendAspNetUser.sql" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -342,6 +342,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\SqlScripts\Master.sql" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -404,6 +405,9 @@
     <Content Include="Views\WorkExperiences\Details.cshtml" />
     <Content Include="Views\WorkExperiences\Edit.cshtml" />
     <Content Include="Views\WorkExperiences\Index.cshtml" />
+    <Content Include="Views\PersonalInfo\Delete.cshtml" />
+    <Content Include="Views\PersonalInfo\Details.cshtml" />
+    <Content Include="Views\PersonalInfo\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

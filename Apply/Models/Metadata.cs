@@ -104,7 +104,7 @@ namespace Apply.Models
     public class ApplicantMetadata {
         [Display(Name = "Geburtsdatum")]
         [DataType(DataType.Date)]
-        public DateTime Dob;
+        public DateTime DOB;
 
         [Display(Name = "Titel")]
         public string Title;

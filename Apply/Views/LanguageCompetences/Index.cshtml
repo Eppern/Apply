@@ -10,39 +10,47 @@
 <div id="ProgressBar">
     @foreach (var item in Model)
     {
-        int _progress=0;
+        int _progress;
+        /*
+        * Convert language competence to position
+        * on progress bar.
+        *-----------------------------------------
+        * TODO: Write a method fetching ids and 
+        * row count from database and use these to 
+        * determine progress
+        */
         switch (item.LanguageCompetenceLevelId)
         {
-            case 1: _progress = 10;
+            case 0: _progress = 10;
                 break;
-            case 3:
+            case 1:
                 _progress = 25;
                 break;
-            case 4:
+            case 2:
                 _progress = 35;
                 break;
-            case 5:
+            case 3:
                 _progress = 50;
                 break;
-            case 6:
+            case 4:
                 _progress = 65;
                 break;
-            case 7:
+            case 5:
                 _progress = 85;
                 break;
-            case 8:
+            case 6:
                 _progress = 100;
                 break;
             default:
+                _progress = 0;
                 break;
         }
         <p style="font-size: x-large; margin-left: 20px;">
             @item.LanguageName
-        @Html.ActionLink("ändern", "Edit", new { id = item.LanguageCompetenceId }, new { Style = "font-size:14px;float:right;" })
-        @Html.ActionLink("löschen", "Delete", new { id = item.LanguageCompetenceId }, new { Style = "font-size:14px;float:right;margin-right: 20px;" })
-    </p>
-        <progress max="100" value="@_progress">
-        </progress>
+            @Html.ActionLink("ändern", "Edit", new { id = item.LanguageCompetenceId }, new { Style = "font-size:14px;float:right;" })
+            @Html.ActionLink("löschen", "Delete", new { id = item.LanguageCompetenceId }, new { Style = "font-size:14px;float:right;margin-right: 20px;" })
+        </p>
+        <progress max="100" value="@_progress"></progress>
     }
 </div>
 <p>

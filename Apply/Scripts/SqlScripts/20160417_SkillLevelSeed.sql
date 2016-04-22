@@ -2,6 +2,14 @@
 * Seed SkillLevel
 */
 
+DELETE FROM SkillLevel
+
+GO
+
+DBCC CHECKIDENT (SkillLevel, RESEED, 0);
+
+GO
+
 Declare @user nvarchar(128);
 Set @user = (select top 1 Id from AspNetUsers);
 
@@ -17,3 +25,6 @@ VALUES
 ('80', @user, @user, GetDate(), GETDATE()),
 ('90', @user, @user, GetDate(), GETDATE()),
 ('100', @user, @user, GetDate(), GETDATE());
+
+/*Test*/
+Select * from [SkillLevel]
