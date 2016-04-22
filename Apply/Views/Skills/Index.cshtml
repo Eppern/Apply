@@ -8,7 +8,7 @@
 <h2 style="margin-left: 105px;">Fähigkeiten</h2>
 
 <div id="ProgressBar">
-    @foreach (var item in Model.Where(s => s.CreatedById == ViewBag.currentUser))
+    @foreach (var item in Model)
     {
         <p style="font-size: x-large; margin-left: 20px;">@item.SkillName 
         @Html.ActionLink("ändern", "Edit", new { id = item.SkillId }, new { Style="font-size:14px;float:right;" })             

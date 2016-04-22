@@ -17,8 +17,10 @@ namespace Apply.Controllers
         // GET: WorkExperiences
         public ActionResult Index()
         {
-            var workExperiences = db.WorkExperiences.Include(w => w.AspNetUser).Include(w => w.AspNetUser1).OrderByDescending(e => e.YearEnd);
-            ViewBag.currentUser = db.AspNetUsers.Where(u => u.UserName == User.Identity.Name).Select(u => u.Id).FirstOrDefault();
+            var userId = User.Identity.GetUserId();
+            var workExperiences = db.WorkExperiences
+                .Where(e => e.CreatedById == userId)
+                .OrderByDescending(e => e.YearEnd);
             return View(workExperiences.ToList());
         }
 

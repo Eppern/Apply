@@ -72,12 +72,13 @@ namespace Apply.Helpers {
                 userManager.AddToRoles(user.Id, roles.ToArray());
             }
             else {
-                throw new Exception("Role does not exist");
+                var controllerHelper = new ControllerHelpers();
+                controllerHelper.CreateErrorPage($"Role {role.ToString()} does not exist", "Home", "Index");
             }
         }
 
         /// <summary>
-        /// Adds a user's details taken from external login provider account
+        /// Adds a user's details taken from external login provider
         /// </summary>
         /// <param name="user">ApplicationUser</param>
         /// <param name="info">ExternalLoginInfo</param>
@@ -90,7 +91,7 @@ namespace Apply.Helpers {
                 var surname = info.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Surname);
                 if (surname != null)
                     user.Surname = surname.Value;
-                user.UserName = info.ExternalIdentity.GetUserName();
+                user.UserName = info.ExternalIdentity.GetUserName()?? user.UserName;
             }
 
             return user;
@@ -114,7 +115,7 @@ namespace Apply.Helpers {
                     result = "twitter";
                     break;
                 default:
-                    //error (provider prob changed their name), use a generic button
+                    //error (provider probabaly changed their name), use a generic button
                     result = "link";
                     break;
             }
@@ -122,7 +123,7 @@ namespace Apply.Helpers {
         }
 
         /// <summary>
-        /// Creates a Company entity
+        /// Creates a Company entity using an Application User as basis
         /// </summary>
         /// <param name="user">ApplicationUser</param>
         /// <param name="model">RegisterViewModel</param>
@@ -152,7 +153,7 @@ namespace Apply.Helpers {
         }
 
         /// <summary>
-        /// Creates a geek entity
+        /// Creates a geek entity using an Application User as basis
         /// </summary>
         /// <param name="user">ApplicationUser</param>
         public static void CreateApplicantFromIdentity(ApplicationUser user) {
