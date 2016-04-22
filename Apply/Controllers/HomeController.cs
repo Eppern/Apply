@@ -7,8 +7,6 @@ namespace Apply.Controllers
     {
         public ActionResult Index()
         {
-            //Run this only like a seed
-            //UserHelpers.CreateAspNetRoles();
             return View();
         }
 

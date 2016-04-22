@@ -19,6 +19,7 @@
             <span></span>
         </a>
     </header>
+    <!-- Navbar -->
     <nav class="cd-3d-nav-container">
         <ul class="cd-3d-nav">
             <li>@Html.ActionLink("Startseite", "Index", "Home")</li>
@@ -45,6 +46,7 @@
             }
         </ul>
     </nav>
+    <!-- /Navbar -->
     <main>
         <div id="wrapper">
             <!-- Sidebar -->
@@ -70,7 +72,7 @@
                     </li>
                 </ul>
             </div>
-            <!-- /#sidebar-wrapper -->
+            <!-- /Sidebar -->
             <!-- Page Content -->
             <div id="page-content-wrapper">
                 <a href="#menu-toggle" class="cd-3d-nav-trigger1" id="menu-toggle">
@@ -84,20 +86,23 @@
                     </div>
                 </div>
             </div>
-            <!-- /#page-content-wrapper -->
+            <!-- /Page Content -->
         </div>
     </main>
-
+    <!-- Scripte -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="~/Scripts/jquery.shuffleLetters.js"></script>
     <script src="~/Scripts/script.js"></script>
     <script src="~/Scripts/main.js"></script>
     @RenderSection("scripts", required: false)
+    <!-- /Scripte -->
 </body>
 </html>
+    <!-- Slidescript -->
 <script>
     $("#menu-toggle").click(function (e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
 </script>
+    <!-- /Slidescript -->
